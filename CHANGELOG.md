@@ -8,10 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **`notAvailable` harvest state**: New harvest state to represent vegetables that are currently not available (2025-11-15)
+  - Added to `HarvestState` enum with translations in all 4 languages
+  - English: "Not Available", Dutch: "Niet beschikbaar", French: "Non disponible", German: "Nicht verfügbar"
+  - Updated JSON schema to include `notAvailable` in enum values
+  - Added comprehensive TDD test coverage (9 new tests)
+  - Updated `getLocalizedHarvestState()` method to handle new state
 - Multilingual vegetable data model with i18n support
 - Support for Dutch (NL), English (EN), French (FR), and German (DE) languages
 - `Vegetable` model with harvest states and timestamps
-- `HarvestState` enum (scarce, enough, plenty)
+- `HarvestState` enum (scarce, enough, plenty, notAvailable)
 - `VegetableTranslations` model for multi-language support
 - `isValidVegetableName()` validation function
 - Type-safe JSON serialization using `dart_mappable`

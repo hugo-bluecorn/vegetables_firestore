@@ -82,7 +82,7 @@ dart format .
 - `name`: Primary name (Dutch)
 - `createdAt`: ISO 8601 timestamp
 - `updatedAt`: ISO 8601 timestamp
-- `harvestState`: Enum (scarce, enough, plenty)
+- `harvestState`: Enum (scarce, enough, plenty, notAvailable)
 - `translations`: Multi-language support (NL, EN, FR, DE)
 
 Methods:
@@ -93,6 +93,7 @@ Methods:
 - `scarce`: Limited availability
 - `enough`: Adequate availability
 - `plenty`: Abundant availability
+- `notAvailable`: Currently not available
 
 ## Dependencies
 

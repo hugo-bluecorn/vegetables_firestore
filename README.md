@@ -66,7 +66,7 @@ print(vegetable.getLocalizedName('fr')); // French name
 print(vegetable.getLocalizedName('de')); // German name
 
 // Get localized harvest state
-print(vegetable.getLocalizedHarvestState('en')); // "Scarce", "Enough", or "Plenty"
+print(vegetable.getLocalizedHarvestState('en')); // "Scarce", "Enough", "Plenty", or "Not Available"
 
 // Convert to JSON
 final json = vegetable.toJson();
@@ -98,6 +98,7 @@ bool isInvalid = isValidVegetableName('123'); // false
 - `scarce`: Limited availability
 - `enough`: Adequate availability
 - `plenty`: Abundant availability
+- `notAvailable`: Currently not available
 
 ### Supported Languages
 
