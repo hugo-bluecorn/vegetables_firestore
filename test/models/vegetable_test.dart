@@ -104,7 +104,7 @@ void main() {
       final vegetable = VegetableMapper.fromMap(validJson);
 
       expect(vegetable, isNotNull);
-      expect(vegetable.name, equals('Carrot'));
+      expect(vegetable.name, equals('Wortel'));
       expect(vegetable.createdAt, isA<DateTime>());
       expect(vegetable.updatedAt, isA<DateTime>());
       expect(vegetable.harvestState, equals(HarvestState.enough));
@@ -144,7 +144,7 @@ void main() {
 
       final vegetable = VegetableMapper.fromJson(jsonString);
 
-      expect(vegetable.name, equals('Tomato'));
+      expect(vegetable.name, equals('Tomaat'));
       expect(vegetable.createdAt, isA<DateTime>());
       expect(vegetable.updatedAt, isA<DateTime>());
       expect(vegetable.harvestState, equals(HarvestState.scarce));
@@ -161,7 +161,7 @@ void main() {
 
       final vegetable = VegetableMapper.fromMap(validJson);
 
-      expect(vegetable.name, equals('Bell Pepper'));
+      expect(vegetable.name, equals('Paprika'));
       expect(vegetable.harvestState, equals(HarvestState.enough));
     });
 
@@ -201,7 +201,7 @@ void main() {
       final jsonMap = vegetable.toMap();
 
       expect(jsonMap, isA<Map<String, dynamic>>());
-      expect(jsonMap['name'], equals('Carrot'));
+      expect(jsonMap['name'], equals('Wortel'));
       expect(jsonMap['createdAt'], isNotNull);
       expect(jsonMap['updatedAt'], isNotNull);
       expect(jsonMap['harvestState'], equals('enough'));
@@ -262,7 +262,7 @@ void main() {
       // Should be valid JSON
       final decoded = json.decode(jsonString);
       expect(decoded, isA<Map>());
-      expect(decoded['name'], equals('Bell Pepper'));
+      expect(decoded['name'], equals('Paprika'));
     });
 
     test('should only include schema-defined properties', () {
@@ -360,7 +360,7 @@ void main() {
         vegetable = VegetableMapper.fromMap(jsonMap);
       }
 
-      expect(vegetable.name, equals('Sweet Potato'));
+      expect(vegetable.name, equals('Zoete aardappel'));
       expect(vegetable.harvestState, equals(HarvestState.plenty));
     });
 
