@@ -8,7 +8,7 @@ import 'package:vegetables_firestore/models/vegetable.dart';
 VegetableTranslations createValidTranslations() {
   return const VegetableTranslations(
     en: Translation(
-      name: 'Tomato',
+      name: 'Tomaat',
       harvestState: HarvestStateTranslation(
         scarce: 'Scarce',
         enough: 'Enough',
@@ -46,7 +46,7 @@ VegetableTranslations createValidTranslations() {
 Map<String, dynamic> createValidTranslationsJson() {
   return {
     'en': {
-      'name': 'Tomato',
+      'name': 'Tomaat',
       'harvestState': {
         'scarce': 'Scarce',
         'enough': 'Enough',
@@ -94,7 +94,7 @@ void main() {
   group('Test 5: Create dart_mappable model from valid JSON', () {
     test('should deserialize valid JSON to Vegetable model', () {
       final validJson = {
-        'name': 'Carrot',
+        'name': 'Wortel',
         'createdAt': '2025-11-15T10:30:00.000Z',
         'updatedAt': '2025-11-15T10:30:00.000Z',
         'harvestState': 'enough',
@@ -113,7 +113,7 @@ void main() {
 
     test('should parse timestamps correctly as DateTime objects', () {
       final validJson = {
-        'name': 'Sweet Potato',
+        'name': 'Zoete aardappel',
         'createdAt': '2025-11-15T10:30:00.000Z',
         'updatedAt': '2025-11-15T12:45:30.000Z',
         'harvestState': 'plenty',
@@ -135,7 +135,7 @@ void main() {
 
     test('should deserialize from JSON string', () {
       final jsonString = json.encode({
-        'name': 'Tomato',
+        'name': 'Tomaat',
         'createdAt': '2025-11-15T10:30:00.000Z',
         'updatedAt': '2025-11-15T10:30:00.000Z',
         'harvestState': 'scarce',
@@ -152,7 +152,7 @@ void main() {
 
     test('should handle different vegetable names', () {
       final validJson = {
-        'name': 'Bell Pepper',
+        'name': 'Paprika',
         'createdAt': '2025-11-15T10:30:00.000Z',
         'updatedAt': '2025-11-15T10:30:00.000Z',
         'harvestState': 'enough',
@@ -174,7 +174,7 @@ void main() {
 
       for (final entry in states.entries) {
         final validJson = {
-          'name': 'Test Vegetable',
+          'name': 'Test Groente',
           'createdAt': '2025-11-15T10:30:00.000Z',
           'updatedAt': '2025-11-15T10:30:00.000Z',
           'harvestState': entry.key,
@@ -191,7 +191,7 @@ void main() {
   group('Test 6: Serialize dart_mappable model to valid JSON', () {
     test('should serialize Vegetable to JSON map', () {
       final vegetable = Vegetable(
-        name: 'Carrot',
+        name: 'Wortel',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.enough,
@@ -210,7 +210,7 @@ void main() {
 
     test('should produce JSON that passes schema validation', () {
       final vegetable = Vegetable(
-        name: 'Sweet Potato',
+        name: 'Zoete aardappel',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T12:45:30.000Z'),
         harvestState: HarvestState.plenty,
@@ -228,7 +228,7 @@ void main() {
 
     test('should format timestamps as ISO 8601 strings', () {
       final vegetable = Vegetable(
-        name: 'Tomato',
+        name: 'Tomaat',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.scarce,
@@ -248,7 +248,7 @@ void main() {
 
     test('should serialize to JSON string', () {
       final vegetable = Vegetable(
-        name: 'Bell Pepper',
+        name: 'Paprika',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.enough,
@@ -267,7 +267,7 @@ void main() {
 
     test('should only include schema-defined properties', () {
       final vegetable = Vegetable(
-        name: 'Kale',
+        name: 'Boerenkool',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.plenty,
@@ -291,7 +291,7 @@ void main() {
 
       for (var i = 0; i < states.length; i++) {
         final vegetable = Vegetable(
-          name: 'Test Vegetable',
+          name: 'Test Groente',
           createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
           updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
           harvestState: states[i],
@@ -312,7 +312,7 @@ void main() {
   group('Test 7: Round-trip conversion maintains schema compliance', () {
     test('should maintain data through serialize/deserialize cycle', () {
       final original = Vegetable(
-        name: 'Carrot',
+        name: 'Wortel',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T12:45:30.000Z'),
         harvestState: HarvestState.enough,
@@ -341,7 +341,7 @@ void main() {
 
     test('should maintain schema compliance through multiple cycles', () {
       var vegetable = Vegetable(
-        name: 'Sweet Potato',
+        name: 'Zoete aardappel',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.plenty,
@@ -366,7 +366,7 @@ void main() {
 
     test('should handle different timestamp values correctly', () {
       final original = Vegetable(
-        name: 'Tomato',
+        name: 'Tomaat',
         createdAt: DateTime.parse('2020-01-01T00:00:00.000Z'),
         updatedAt: DateTime.parse('2025-12-31T23:59:59.999Z'),
         harvestState: HarvestState.scarce,
@@ -420,7 +420,7 @@ void main() {
 
       for (final state in states) {
         final original = Vegetable(
-          name: 'Test Vegetable',
+          name: 'Test Groente',
           createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
           updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
           harvestState: state,
@@ -441,7 +441,7 @@ void main() {
   group('Test 8: Translation model serialization', () {
     test('should serialize Vegetable with translations to valid JSON', () {
       final vegetable = Vegetable(
-        name: 'Tomato',
+        name: 'Tomaat',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.enough,
@@ -467,7 +467,7 @@ void main() {
   group('Test 9: Translation model deserialization', () {
     test('should deserialize JSON with translations to Vegetable model', () {
       final validJson = {
-        'name': 'Tomato',
+        'name': 'Tomaat',
         'createdAt': '2025-11-15T10:30:00.000Z',
         'updatedAt': '2025-11-15T10:30:00.000Z',
         'harvestState': 'enough',
@@ -484,7 +484,7 @@ void main() {
 
     test('should deserialize harvestState translations correctly', () {
       final validJson = {
-        'name': 'Tomato',
+        'name': 'Tomaat',
         'createdAt': '2025-11-15T10:30:00.000Z',
         'updatedAt': '2025-11-15T10:30:00.000Z',
         'harvestState': 'enough',
@@ -518,7 +518,7 @@ void main() {
   group('Test 10: Translation round-trip serialization', () {
     test('should preserve all translation data through round-trip', () {
       final original = Vegetable(
-        name: 'Tomato',
+        name: 'Tomaat',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.enough,
@@ -548,7 +548,7 @@ void main() {
   group('Test 11: Localized name retrieval', () {
     test('should return correct translation for each language code', () {
       final vegetable = Vegetable(
-        name: 'Tomato',
+        name: 'Tomaat',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.enough,
@@ -565,7 +565,7 @@ void main() {
   group('Test 12: Localized harvest state retrieval', () {
     test('should return correct harvest state translation for each language', () {
       final vegetable = Vegetable(
-        name: 'Tomato',
+        name: 'Tomaat',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.enough,
@@ -580,7 +580,7 @@ void main() {
 
     test('should return correct translation for scarce harvest state', () {
       final vegetable = Vegetable(
-        name: 'Tomato',
+        name: 'Tomaat',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.scarce,
@@ -595,7 +595,7 @@ void main() {
 
     test('should return correct translation for plenty harvest state', () {
       final vegetable = Vegetable(
-        name: 'Tomato',
+        name: 'Tomaat',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.plenty,
@@ -610,32 +610,32 @@ void main() {
   });
 
   group('Test 13: Fallback for unknown language codes', () {
-    test('should fall back to primary name for unknown language code', () {
+    test('should fall back to primary name (Dutch) for unknown language code', () {
       final vegetable = Vegetable(
-        name: 'Tomato',
+        name: 'Tomaat',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.enough,
         translations: createValidTranslations(),
       );
 
-      expect(vegetable.getLocalizedName('es'), equals('Tomato'));
-      expect(vegetable.getLocalizedName('it'), equals('Tomato'));
-      expect(vegetable.getLocalizedName('unknown'), equals('Tomato'));
+      expect(vegetable.getLocalizedName('es'), equals('Tomaat'));
+      expect(vegetable.getLocalizedName('it'), equals('Tomaat'));
+      expect(vegetable.getLocalizedName('unknown'), equals('Tomaat'));
     });
 
-    test('should fall back to English translation for unknown language code in harvest state', () {
+    test('should fall back to Dutch translation for unknown language code in harvest state', () {
       final vegetable = Vegetable(
-        name: 'Tomato',
+        name: 'Tomaat',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.enough,
         translations: createValidTranslations(),
       );
 
-      expect(vegetable.getLocalizedHarvestState('es'), equals('Enough'));
-      expect(vegetable.getLocalizedHarvestState('it'), equals('Enough'));
-      expect(vegetable.getLocalizedHarvestState('unknown'), equals('Enough'));
+      expect(vegetable.getLocalizedHarvestState('es'), equals('Genoeg'));
+      expect(vegetable.getLocalizedHarvestState('it'), equals('Genoeg'));
+      expect(vegetable.getLocalizedHarvestState('unknown'), equals('Genoeg'));
     });
   });
 }

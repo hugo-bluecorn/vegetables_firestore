@@ -7,7 +7,7 @@ import 'package:json_schema/json_schema.dart';
 Map<String, dynamic> createValidTranslations() {
   return {
     'en': {
-      'name': 'Tomato',
+      'name': 'Tomaat',
       'harvestState': {
         'scarce': 'Scarce',
         'enough': 'Enough',
@@ -108,7 +108,7 @@ void main() {
   group('Test 2: Validate JSON against schema - valid vegetable', () {
     test('should validate a valid vegetable JSON', () {
       final validVegetable = {
-        'name': 'Carrot',
+        'name': 'Wortel',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
@@ -122,7 +122,7 @@ void main() {
 
     test('should validate vegetable with different name', () {
       final validVegetable = {
-        'name': 'Sweet Potato',
+        'name': 'Zoete aardappel',
         'createdAt': '2025-01-01T00:00:00Z',
         'updatedAt': '2025-01-01T00:00:00Z',
         'harvestState': 'plenty',
@@ -135,7 +135,7 @@ void main() {
 
     test('should validate vegetable with updated timestamp different from created', () {
       final validVegetable = {
-        'name': 'Tomato',
+        'name': 'Tomaat',
         'createdAt': '2025-11-15T10:00:00Z',
         'updatedAt': '2025-11-15T12:00:00Z',
         'harvestState': 'scarce',
@@ -149,7 +149,7 @@ void main() {
     test('should validate all harvestState enum values', () {
       for (final state in ['scarce', 'enough', 'plenty']) {
         final validVegetable = {
-          'name': 'Test Vegetable',
+          'name': 'Test Groente',
           'createdAt': '2025-11-15T10:30:00Z',
           'updatedAt': '2025-11-15T10:30:00Z',
           'harvestState': state,
@@ -179,7 +179,7 @@ void main() {
 
     test('should reject JSON missing createdAt field', () {
       final invalidVegetable = {
-        'name': 'Carrot',
+        'name': 'Wortel',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
         'translations': createValidTranslations(),
@@ -192,7 +192,7 @@ void main() {
 
     test('should reject JSON missing updatedAt field', () {
       final invalidVegetable = {
-        'name': 'Carrot',
+        'name': 'Wortel',
         'createdAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
         'translations': createValidTranslations(),
@@ -205,7 +205,7 @@ void main() {
 
     test('should reject JSON missing harvestState field', () {
       final invalidVegetable = {
-        'name': 'Carrot',
+        'name': 'Wortel',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'translations': createValidTranslations(),
@@ -218,7 +218,7 @@ void main() {
 
     test('should reject JSON missing translations field', () {
       final invalidVegetable = {
-        'name': 'Carrot',
+        'name': 'Wortel',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
@@ -280,7 +280,7 @@ void main() {
 
     test('should reject JSON with invalid timestamp format for createdAt', () {
       final invalidVegetable = {
-        'name': 'Carrot',
+        'name': 'Wortel',
         'createdAt': 'not-a-valid-timestamp',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
@@ -293,7 +293,7 @@ void main() {
 
     test('should reject JSON with timestamp as number', () {
       final invalidVegetable = {
-        'name': 'Carrot',
+        'name': 'Wortel',
         'createdAt': 1700000000,
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
@@ -306,7 +306,7 @@ void main() {
 
     test('should reject JSON with invalid harvestState value', () {
       final invalidVegetable = {
-        'name': 'Carrot',
+        'name': 'Wortel',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'abundant', // Invalid enum value
@@ -319,7 +319,7 @@ void main() {
 
     test('should reject JSON with harvestState as number', () {
       final invalidVegetable = {
-        'name': 'Carrot',
+        'name': 'Wortel',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 1,
@@ -332,7 +332,7 @@ void main() {
 
     test('should reject JSON with empty harvestState string', () {
       final invalidVegetable = {
-        'name': 'Carrot',
+        'name': 'Wortel',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': '',
@@ -345,7 +345,7 @@ void main() {
 
     test('should reject JSON with additional properties', () {
       final invalidVegetable = {
-        'name': 'Carrot',
+        'name': 'Wortel',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
@@ -361,7 +361,7 @@ void main() {
   group('Test 5: Translation validation - valid translations', () {
     test('should validate complete translations with all four languages', () {
       final validVegetable = {
-        'name': 'Tomato',
+        'name': 'Tomaat',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
@@ -377,13 +377,13 @@ void main() {
   group('Test 6: Translation validation - missing languages', () {
     test('should reject translations missing "de" language', () {
       final invalidVegetable = {
-        'name': 'Tomato',
+        'name': 'Tomaat',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
         'translations': {
           'en': {
-            'name': 'Tomato',
+            'name': 'Tomaat',
             'harvestState': {
               'scarce': 'Scarce',
               'enough': 'Enough',
@@ -416,13 +416,13 @@ void main() {
 
     test('should reject translations missing "nl" language', () {
       final invalidVegetable = {
-        'name': 'Tomato',
+        'name': 'Tomaat',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
         'translations': {
           'en': {
-            'name': 'Tomato',
+            'name': 'Tomaat',
             'harvestState': {
               'scarce': 'Scarce',
               'enough': 'Enough',
@@ -460,7 +460,7 @@ void main() {
       (translations['nl'] as Map<String, dynamic>).remove('name');
 
       final invalidVegetable = {
-        'name': 'Tomato',
+        'name': 'Tomaat',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
@@ -476,7 +476,7 @@ void main() {
       (translations['fr'] as Map<String, dynamic>).remove('harvestState');
 
       final invalidVegetable = {
-        'name': 'Tomato',
+        'name': 'Tomaat',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
@@ -495,7 +495,7 @@ void main() {
       enHarvestState.remove('plenty');
 
       final invalidVegetable = {
-        'name': 'Tomato',
+        'name': 'Tomaat',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
@@ -512,7 +512,7 @@ void main() {
       deHarvestState.remove('scarce');
 
       final invalidVegetable = {
-        'name': 'Tomato',
+        'name': 'Tomaat',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
@@ -529,7 +529,7 @@ void main() {
       nlHarvestState.remove('enough');
 
       final invalidVegetable = {
-        'name': 'Tomato',
+        'name': 'Tomaat',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
@@ -554,7 +554,7 @@ void main() {
       };
 
       final invalidVegetable = {
-        'name': 'Tomato',
+        'name': 'Tomaat',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
@@ -572,7 +572,7 @@ void main() {
       (translations['en'] as Map<String, dynamic>)['name'] = '';
 
       final invalidVegetable = {
-        'name': 'Tomato',
+        'name': 'Tomaat',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
@@ -589,7 +589,7 @@ void main() {
       frHarvestState['scarce'] = '';
 
       final invalidVegetable = {
-        'name': 'Tomato',
+        'name': 'Tomaat',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',

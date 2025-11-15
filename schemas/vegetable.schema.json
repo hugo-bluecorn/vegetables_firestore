@@ -9,7 +9,7 @@
       "type": "string",
       "minLength": 1,
       "maxLength": 100,
-      "description": "The default/primary name of the vegetable (typically English)"
+      "description": "The default/primary name of the vegetable (typically Dutch)"
     },
     "createdAt": {
       "type": "string",
@@ -24,7 +24,7 @@
     "harvestState": {
       "type": "string",
       "enum": ["scarce", "enough", "plenty"],
-      "description": "The default harvest state of the vegetable (typically English)"
+      "description": "The harvest state enum (technical identifier, translations provide localized values)"
     },
     "translations": {
       "type": "object",

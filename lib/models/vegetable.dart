@@ -96,14 +96,14 @@ class VegetableTranslations with VegetableTranslationsMappable {
 /// and provides serialization/deserialization using dart_mappable.
 ///
 /// All fields are required:
-/// - [name]: The default/primary name of the vegetable (1-100 characters)
+/// - [name]: The default/primary name of the vegetable (typically Dutch, 1-100 characters)
 /// - [createdAt]: ISO 8601 timestamp when the vegetable was created
 /// - [updatedAt]: ISO 8601 timestamp when the vegetable was last updated
-/// - [harvestState]: The default harvest state (scarce, enough, or plenty)
-/// - [translations]: Internationalization data for EN, NL, FR, DE languages
+/// - [harvestState]: The harvest state enum (scarce, enough, or plenty)
+/// - [translations]: Internationalization data for NL, EN, FR, DE languages
 @MappableClass()
 class Vegetable with VegetableMappable {
-  /// The default/primary name of the vegetable (typically English)
+  /// The default/primary name of the vegetable (typically Dutch)
   final String name;
 
   /// ISO 8601 timestamp when the vegetable was created
@@ -129,7 +129,7 @@ class Vegetable with VegetableMappable {
   /// Gets the localized name for the specified language code
   ///
   /// Supported language codes: 'en', 'nl', 'fr', 'de'
-  /// Falls back to the primary [name] field for unsupported languages
+  /// Falls back to the primary [name] field (typically Dutch) for unsupported languages
   String getLocalizedName(String languageCode) {
     switch (languageCode) {
       case 'en':
@@ -148,7 +148,7 @@ class Vegetable with VegetableMappable {
   /// Gets the localized harvest state for the specified language code
   ///
   /// Supported language codes: 'en', 'nl', 'fr', 'de'
-  /// Falls back to English translation for unsupported languages
+  /// Falls back to Dutch translation for unsupported languages
   String getLocalizedHarvestState(String languageCode) {
     final translation = _getTranslation(languageCode);
     switch (harvestState) {
@@ -162,7 +162,7 @@ class Vegetable with VegetableMappable {
   }
 
   /// Gets the translation for the specified language code
-  /// Falls back to English for unsupported languages
+  /// Falls back to Dutch for unsupported languages
   Translation _getTranslation(String languageCode) {
     switch (languageCode) {
       case 'en':
@@ -174,7 +174,7 @@ class Vegetable with VegetableMappable {
       case 'de':
         return translations.de;
       default:
-        return translations.en;
+        return translations.nl;
     }
   }
 

@@ -383,7 +383,7 @@ Following the established pattern in this project:
 7. Run build_runner to generate mapper files
 
 ### Translation Structure Design
-- **Primary fields remain**: `name` and `harvestState` stay as primary fields (typically English)
+- **Primary fields remain**: `name` and `harvestState` stay as primary fields (typically Dutch)
 - **Separate translations object**: Clean separation of base data vs i18n data
 - **Nested structure**: HarvestState translations are objects with all three values (scarce, enough, plenty)
 - **Type safety**: All four languages enforced at compile time
@@ -392,7 +392,7 @@ Following the established pattern in this project:
 ### Example JSON
 ```json
 {
-  "name": "Tomato",
+  "name": "Tomaat",
   "createdAt": "2025-01-15T10:00:00Z",
   "updatedAt": "2025-01-15T10:00:00Z",
   "harvestState": "enough",
