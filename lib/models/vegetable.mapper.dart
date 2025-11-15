@@ -32,6 +32,8 @@ class HarvestStateMapper extends EnumMapper<HarvestState> {
         return HarvestState.enough;
       case r'plenty':
         return HarvestState.plenty;
+      case r'notAvailable':
+        return HarvestState.notAvailable;
       default:
         throw MapperException.unknownEnumValue(value);
     }
@@ -46,6 +48,8 @@ class HarvestStateMapper extends EnumMapper<HarvestState> {
         return r'enough';
       case HarvestState.plenty:
         return r'plenty';
+      case HarvestState.notAvailable:
+        return r'notAvailable';
     }
   }
 }
@@ -89,12 +93,18 @@ class HarvestStateTranslationMapper
     'plenty',
     _$plenty,
   );
+  static String _$notAvailable(HarvestStateTranslation v) => v.notAvailable;
+  static const Field<HarvestStateTranslation, String> _f$notAvailable = Field(
+    'notAvailable',
+    _$notAvailable,
+  );
 
   @override
   final MappableFields<HarvestStateTranslation> fields = const {
     #scarce: _f$scarce,
     #enough: _f$enough,
     #plenty: _f$plenty,
+    #notAvailable: _f$notAvailable,
   };
 
   static HarvestStateTranslation _instantiate(DecodingData data) {
@@ -102,6 +112,7 @@ class HarvestStateTranslationMapper
       scarce: data.dec(_f$scarce),
       enough: data.dec(_f$enough),
       plenty: data.dec(_f$plenty),
+      notAvailable: data.dec(_f$notAvailable),
     );
   }
 
@@ -175,7 +186,12 @@ abstract class HarvestStateTranslationCopyWith<
   $Out
 >
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? scarce, String? enough, String? plenty});
+  $R call({
+    String? scarce,
+    String? enough,
+    String? plenty,
+    String? notAvailable,
+  });
   HarvestStateTranslationCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
   );
@@ -191,11 +207,17 @@ class _HarvestStateTranslationCopyWithImpl<$R, $Out>
   late final ClassMapperBase<HarvestStateTranslation> $mapper =
       HarvestStateTranslationMapper.ensureInitialized();
   @override
-  $R call({String? scarce, String? enough, String? plenty}) => $apply(
+  $R call({
+    String? scarce,
+    String? enough,
+    String? plenty,
+    String? notAvailable,
+  }) => $apply(
     FieldCopyWithData({
       if (scarce != null) #scarce: scarce,
       if (enough != null) #enough: enough,
       if (plenty != null) #plenty: plenty,
+      if (notAvailable != null) #notAvailable: notAvailable,
     }),
   );
   @override
@@ -203,6 +225,7 @@ class _HarvestStateTranslationCopyWithImpl<$R, $Out>
     scarce: data.get(#scarce, or: $value.scarce),
     enough: data.get(#enough, or: $value.enough),
     plenty: data.get(#plenty, or: $value.plenty),
+    notAvailable: data.get(#notAvailable, or: $value.notAvailable),
   );
 
   @override
