@@ -3,6 +3,7 @@ import 'package:dart_mappable/dart_mappable.dart';
 part 'vegetable.mapper.dart';
 
 /// Harvest state of a vegetable
+@MappableEnum()
 enum HarvestState {
   /// Scarce availability
   scarce,
