@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/vegetable.schema.json",
+  "title": "Vegetable",
+  "description": "A vegetable with name and timestamps",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "The name of the vegetable"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the vegetable was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the vegetable was last updated"
+    }
+  },
+  "required": ["name", "createdAt", "updatedAt"],
+  "additionalProperties": false
+}
