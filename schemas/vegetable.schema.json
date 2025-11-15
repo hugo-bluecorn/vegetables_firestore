@@ -20,8 +20,13 @@
       "type": "string",
       "format": "date-time",
       "description": "ISO 8601 timestamp when the vegetable was last updated"
+    },
+    "harvestState": {
+      "type": "string",
+      "enum": ["scarce", "enough", "plenty"],
+      "description": "The harvest state of the vegetable"
     }
   },
-  "required": ["name", "createdAt", "updatedAt"],
+  "required": ["name", "createdAt", "updatedAt", "harvestState"],
   "additionalProperties": false
 }

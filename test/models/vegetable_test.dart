@@ -21,6 +21,7 @@ void main() {
         'name': 'Carrot',
         'createdAt': '2025-11-15T10:30:00.000Z',
         'updatedAt': '2025-11-15T10:30:00.000Z',
+        'harvestState': 'enough',
       };
 
       final vegetable = VegetableMapper.fromMap(validJson);
@@ -29,6 +30,7 @@ void main() {
       expect(vegetable.name, equals('Carrot'));
       expect(vegetable.createdAt, isA<DateTime>());
       expect(vegetable.updatedAt, isA<DateTime>());
+      expect(vegetable.harvestState, equals(HarvestState.enough));
     });
 
     test('should parse timestamps correctly as DateTime objects', () {
@@ -36,6 +38,7 @@ void main() {
         'name': 'Sweet Potato',
         'createdAt': '2025-11-15T10:30:00.000Z',
         'updatedAt': '2025-11-15T12:45:30.000Z',
+        'harvestState': 'plenty',
       };
 
       final vegetable = VegetableMapper.fromMap(validJson);
@@ -48,6 +51,7 @@ void main() {
 
       expect(vegetable.updatedAt.hour, equals(12));
       expect(vegetable.updatedAt.minute, equals(45));
+      expect(vegetable.harvestState, equals(HarvestState.plenty));
     });
 
     test('should deserialize from JSON string', () {
@@ -55,6 +59,7 @@ void main() {
         'name': 'Tomato',
         'createdAt': '2025-11-15T10:30:00.000Z',
         'updatedAt': '2025-11-15T10:30:00.000Z',
+        'harvestState': 'scarce',
       });
 
       final vegetable = VegetableMapper.fromJson(jsonString);
@@ -62,6 +67,7 @@ void main() {
       expect(vegetable.name, equals('Tomato'));
       expect(vegetable.createdAt, isA<DateTime>());
       expect(vegetable.updatedAt, isA<DateTime>());
+      expect(vegetable.harvestState, equals(HarvestState.scarce));
     });
 
     test('should handle different vegetable names', () {
@@ -69,11 +75,34 @@ void main() {
         'name': 'Bell Pepper',
         'createdAt': '2025-11-15T10:30:00.000Z',
         'updatedAt': '2025-11-15T10:30:00.000Z',
+        'harvestState': 'enough',
       };
 
       final vegetable = VegetableMapper.fromMap(validJson);
 
       expect(vegetable.name, equals('Bell Pepper'));
+      expect(vegetable.harvestState, equals(HarvestState.enough));
+    });
+
+    test('should deserialize all harvestState enum values', () {
+      final states = {
+        'scarce': HarvestState.scarce,
+        'enough': HarvestState.enough,
+        'plenty': HarvestState.plenty,
+      };
+
+      for (final entry in states.entries) {
+        final validJson = {
+          'name': 'Test Vegetable',
+          'createdAt': '2025-11-15T10:30:00.000Z',
+          'updatedAt': '2025-11-15T10:30:00.000Z',
+          'harvestState': entry.key,
+        };
+
+        final vegetable = VegetableMapper.fromMap(validJson);
+        expect(vegetable.harvestState, equals(entry.value),
+          reason: 'harvestState "${entry.key}" should map to ${entry.value}');
+      }
     });
   });
 
@@ -83,6 +112,7 @@ void main() {
         name: 'Carrot',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.enough,
       );
 
       final jsonMap = vegetable.toMap();
@@ -91,6 +121,7 @@ void main() {
       expect(jsonMap['name'], equals('Carrot'));
       expect(jsonMap['createdAt'], isNotNull);
       expect(jsonMap['updatedAt'], isNotNull);
+      expect(jsonMap['harvestState'], equals('enough'));
     });
 
     test('should produce JSON that passes schema validation', () {
@@ -98,6 +129,7 @@ void main() {
         name: 'Sweet Potato',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T12:45:30.000Z'),
+        harvestState: HarvestState.plenty,
       );
 
       final jsonMap = vegetable.toMap();
@@ -114,6 +146,7 @@ void main() {
         name: 'Tomato',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.scarce,
       );
 
       final jsonMap = vegetable.toMap();
@@ -132,6 +165,7 @@ void main() {
         name: 'Bell Pepper',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.enough,
       );
 
       final jsonString = vegetable.toJson();
@@ -149,15 +183,39 @@ void main() {
         name: 'Kale',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.plenty,
       );
 
       final jsonMap = vegetable.toMap();
 
-      // Should only have the three properties defined in schema
-      expect(jsonMap.keys.length, equals(3));
+      // Should only have the four properties defined in schema
+      expect(jsonMap.keys.length, equals(4));
       expect(jsonMap.containsKey('name'), isTrue);
       expect(jsonMap.containsKey('createdAt'), isTrue);
       expect(jsonMap.containsKey('updatedAt'), isTrue);
+      expect(jsonMap.containsKey('harvestState'), isTrue);
+    });
+
+    test('should serialize all harvestState enum values correctly', () {
+      final states = [HarvestState.scarce, HarvestState.enough, HarvestState.plenty];
+      final expected = ['scarce', 'enough', 'plenty'];
+
+      for (var i = 0; i < states.length; i++) {
+        final vegetable = Vegetable(
+          name: 'Test Vegetable',
+          createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+          updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+          harvestState: states[i],
+        );
+
+        final jsonMap = vegetable.toMap();
+        expect(jsonMap['harvestState'], equals(expected[i]),
+          reason: '${states[i]} should serialize to "${expected[i]}"');
+
+        // Also validate against schema
+        final result = vegetableSchema.validate(jsonMap);
+        expect(result.isValid, isTrue, reason: 'Serialized ${states[i]} should pass schema validation');
+      }
     });
   });
 
@@ -167,6 +225,7 @@ void main() {
         name: 'Carrot',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T12:45:30.000Z'),
+        harvestState: HarvestState.enough,
       );
 
       // Serialize to JSON
@@ -186,6 +245,7 @@ void main() {
         equals(original.createdAt.toIso8601String()));
       expect(roundTripped.updatedAt.toIso8601String(),
         equals(original.updatedAt.toIso8601String()));
+      expect(roundTripped.harvestState, equals(original.harvestState));
     });
 
     test('should maintain schema compliance through multiple cycles', () {
@@ -193,6 +253,7 @@ void main() {
         name: 'Sweet Potato',
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.plenty,
       );
 
       // Perform multiple round-trips
@@ -208,6 +269,7 @@ void main() {
       }
 
       expect(vegetable.name, equals('Sweet Potato'));
+      expect(vegetable.harvestState, equals(HarvestState.plenty));
     });
 
     test('should handle different timestamp values correctly', () {
@@ -215,6 +277,7 @@ void main() {
         name: 'Tomato',
         createdAt: DateTime.parse('2020-01-01T00:00:00.000Z'),
         updatedAt: DateTime.parse('2025-12-31T23:59:59.999Z'),
+        harvestState: HarvestState.scarce,
       );
 
       final jsonMap = original.toMap();
@@ -227,6 +290,7 @@ void main() {
       expect(roundTripped.updatedAt.year, equals(2025));
       expect(roundTripped.updatedAt.month, equals(12));
       expect(roundTripped.updatedAt.day, equals(31));
+      expect(roundTripped.harvestState, equals(HarvestState.scarce));
     });
 
     test('should preserve name exactly through round-trip', () {
@@ -244,6 +308,7 @@ void main() {
           name: name,
           createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
           updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+          harvestState: HarvestState.enough,
         );
 
         final jsonMap = original.toMap();
@@ -252,6 +317,28 @@ void main() {
 
         final roundTripped = VegetableMapper.fromMap(jsonMap);
         expect(roundTripped.name, equals(name));
+        expect(roundTripped.harvestState, equals(HarvestState.enough));
+      }
+    });
+
+    test('should preserve harvestState through round-trip for all enum values', () {
+      final states = [HarvestState.scarce, HarvestState.enough, HarvestState.plenty];
+
+      for (final state in states) {
+        final original = Vegetable(
+          name: 'Test Vegetable',
+          createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+          updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+          harvestState: state,
+        );
+
+        final jsonMap = original.toMap();
+        final result = vegetableSchema.validate(jsonMap);
+        expect(result.isValid, isTrue, reason: 'harvestState $state should be valid');
+
+        final roundTripped = VegetableMapper.fromMap(jsonMap);
+        expect(roundTripped.harvestState, equals(state),
+          reason: 'harvestState $state should be preserved');
       }
     });
   });

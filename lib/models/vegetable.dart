@@ -2,7 +2,19 @@ import 'package:dart_mappable/dart_mappable.dart';
 
 part 'vegetable.mapper.dart';
 
-/// A vegetable with name and timestamps
+/// Harvest state of a vegetable
+enum HarvestState {
+  /// Scarce availability
+  scarce,
+
+  /// Enough availability
+  enough,
+
+  /// Plenty availability
+  plenty,
+}
+
+/// A vegetable with name, timestamps, and harvest state
 ///
 /// This model is based on the JSON Schema at schemas/vegetable.schema.json
 /// and provides serialization/deserialization using dart_mappable.
@@ -11,6 +23,7 @@ part 'vegetable.mapper.dart';
 /// - [name]: The name of the vegetable (1-100 characters)
 /// - [createdAt]: ISO 8601 timestamp when the vegetable was created
 /// - [updatedAt]: ISO 8601 timestamp when the vegetable was last updated
+/// - [harvestState]: The harvest state (scarce, enough, or plenty)
 @MappableClass()
 class Vegetable with VegetableMappable {
   /// The name of the vegetable
@@ -22,10 +35,14 @@ class Vegetable with VegetableMappable {
   /// ISO 8601 timestamp when the vegetable was last updated
   final DateTime updatedAt;
 
+  /// The harvest state of the vegetable
+  final HarvestState harvestState;
+
   const Vegetable({
     required this.name,
     required this.createdAt,
     required this.updatedAt,
+    required this.harvestState,
   });
 
   /// Creates a Vegetable from a Map

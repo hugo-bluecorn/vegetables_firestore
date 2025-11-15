@@ -21,12 +21,13 @@ void main() {
       expect(schemaJson['\$schema'], equals('http://json-schema.org/draft-07/schema#'));
     });
 
-    test('should define required fields: name, createdAt, updatedAt', () {
+    test('should define required fields: name, createdAt, updatedAt, harvestState', () {
       final required = schemaJson['required'] as List;
       expect(required, contains('name'));
       expect(required, contains('createdAt'));
       expect(required, contains('updatedAt'));
-      expect(required.length, equals(3));
+      expect(required, contains('harvestState'));
+      expect(required.length, equals(4));
     });
 
     test('should specify proper types for each field', () {
@@ -37,6 +38,19 @@ void main() {
       expect(properties['createdAt']['format'], equals('date-time'));
       expect(properties['updatedAt']['type'], equals('string'));
       expect(properties['updatedAt']['format'], equals('date-time'));
+      expect(properties['harvestState']['type'], equals('string'));
+    });
+
+    test('should define harvestState enum with valid values', () {
+      final properties = schemaJson['properties'] as Map<String, dynamic>;
+      final harvestState = properties['harvestState'] as Map<String, dynamic>;
+
+      expect(harvestState['enum'], isNotNull);
+      final enumValues = harvestState['enum'] as List;
+      expect(enumValues, contains('scarce'));
+      expect(enumValues, contains('enough'));
+      expect(enumValues, contains('plenty'));
+      expect(enumValues.length, equals(3));
     });
 
     test('should have minLength and maxLength constraints for name', () {
@@ -58,6 +72,7 @@ void main() {
         'name': 'Carrot',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
       };
 
       final result = vegetableSchema.validate(validVegetable);
@@ -70,6 +85,7 @@ void main() {
         'name': 'Sweet Potato',
         'createdAt': '2025-01-01T00:00:00Z',
         'updatedAt': '2025-01-01T00:00:00Z',
+        'harvestState': 'plenty',
       };
 
       final result = vegetableSchema.validate(validVegetable);
@@ -81,10 +97,25 @@ void main() {
         'name': 'Tomato',
         'createdAt': '2025-11-15T10:00:00Z',
         'updatedAt': '2025-11-15T12:00:00Z',
+        'harvestState': 'scarce',
       };
 
       final result = vegetableSchema.validate(validVegetable);
       expect(result.isValid, isTrue);
+    });
+
+    test('should validate all harvestState enum values', () {
+      for (final state in ['scarce', 'enough', 'plenty']) {
+        final validVegetable = {
+          'name': 'Test Vegetable',
+          'createdAt': '2025-11-15T10:30:00Z',
+          'updatedAt': '2025-11-15T10:30:00Z',
+          'harvestState': state,
+        };
+
+        final result = vegetableSchema.validate(validVegetable);
+        expect(result.isValid, isTrue, reason: 'harvestState "$state" should be valid');
+      }
     });
   });
 
@@ -93,6 +124,7 @@ void main() {
       final invalidVegetable = {
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -105,6 +137,7 @@ void main() {
       final invalidVegetable = {
         'name': 'Carrot',
         'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -116,6 +149,7 @@ void main() {
       final invalidVegetable = {
         'name': 'Carrot',
         'createdAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -123,12 +157,24 @@ void main() {
       expect(result.errors.first.message, contains('updatedAt'));
     });
 
+    test('should reject JSON missing harvestState field', () {
+      final invalidVegetable = {
+        'name': 'Carrot',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+      };
+
+      final result = vegetableSchema.validate(invalidVegetable);
+      expect(result.isValid, isFalse);
+      expect(result.errors.first.message, contains('harvestState'));
+    });
+
     test('should reject JSON missing all fields', () {
       final invalidVegetable = <String, dynamic>{};
 
       final result = vegetableSchema.validate(invalidVegetable);
       expect(result.isValid, isFalse);
-      expect(result.errors.length, greaterThanOrEqualTo(3));
+      expect(result.errors.length, greaterThanOrEqualTo(4));
     });
   });
 
@@ -138,6 +184,7 @@ void main() {
         'name': 123,
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -149,6 +196,7 @@ void main() {
         'name': '',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -160,6 +208,7 @@ void main() {
         'name': 'A' * 101, // 101 characters, exceeds maxLength of 100
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -171,6 +220,7 @@ void main() {
         'name': 'Carrot',
         'createdAt': 'not-a-valid-timestamp',
         'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -182,10 +232,47 @@ void main() {
         'name': 'Carrot',
         'createdAt': 1700000000,
         'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
       expect(result.isValid, isFalse);
+    });
+
+    test('should reject JSON with invalid harvestState value', () {
+      final invalidVegetable = {
+        'name': 'Carrot',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'abundant', // Invalid enum value
+      };
+
+      final result = vegetableSchema.validate(invalidVegetable);
+      expect(result.isValid, isFalse, reason: 'Invalid enum value should fail');
+    });
+
+    test('should reject JSON with harvestState as number', () {
+      final invalidVegetable = {
+        'name': 'Carrot',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 1,
+      };
+
+      final result = vegetableSchema.validate(invalidVegetable);
+      expect(result.isValid, isFalse, reason: 'harvestState must be a string');
+    });
+
+    test('should reject JSON with empty harvestState string', () {
+      final invalidVegetable = {
+        'name': 'Carrot',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': '',
+      };
+
+      final result = vegetableSchema.validate(invalidVegetable);
+      expect(result.isValid, isFalse, reason: 'Empty string not in enum values');
     });
 
     test('should reject JSON with additional properties', () {
@@ -193,6 +280,7 @@ void main() {
         'name': 'Carrot',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
         'extraField': 'should not be allowed',
       };
 
