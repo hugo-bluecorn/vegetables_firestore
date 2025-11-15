@@ -23,7 +23,7 @@
     },
     "harvestState": {
       "type": "string",
-      "enum": ["scarce", "enough", "plenty"],
+      "enum": ["scarce", "enough", "plenty", "notAvailable"],
       "description": "The harvest state enum (technical identifier, translations provide localized values)"
     },
     "translations": {
@@ -69,7 +69,7 @@
     "HarvestStateTranslation": {
       "type": "object",
       "description": "Translations for all harvest state values",
-      "required": ["scarce", "enough", "plenty"],
+      "required": ["scarce", "enough", "plenty", "notAvailable"],
       "properties": {
         "scarce": {
           "type": "string",
@@ -85,6 +85,11 @@
           "type": "string",
           "minLength": 1,
           "description": "Translation for 'plenty' harvest state"
+        },
+        "notAvailable": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Translation for 'notAvailable' harvest state"
         }
       },
       "additionalProperties": false

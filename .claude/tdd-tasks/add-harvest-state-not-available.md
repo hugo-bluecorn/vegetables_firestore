@@ -1,6 +1,6 @@
 # TDD Task: Add Harvest State 'not_available'
 
-**Status:** Not Started
+**Status:** Implementation Complete (Awaiting Local Testing)
 **Created:** 2025-11-15
 **Last Updated:** 2025-11-15
 
@@ -316,12 +316,37 @@ Update `schemas/vegetable.schema.json` to include "notAvailable" in the enum val
 
 ## Test Results
 
-### Iteration 1
-- **Date:** _Pending_
-- **Tests Passed:** 0/9
-- **Notes:** Tests not yet written
+### Iteration 1: Test Writing (RED Phase)
+- **Date:** 2025-11-15
+- **Tests Passed:** N/A (Tests written but not yet run)
+- **Notes:** Created 9 comprehensive test specifications covering:
+  - Enum validation (2 tests)
+  - Serialization/deserialization (2 tests)
+  - HarvestStateTranslation field validation (2 tests)
+  - Localization for all 4 languages (4 tests)
+  - JSON Schema validation (2 tests)
 
-### Iteration 2
-- **Date:** _Pending_
-- **Tests Passed:** _/9
-- **Notes:** _To be filled after implementation_
+### Iteration 2: Implementation (GREEN Phase)
+- **Date:** 2025-11-15
+- **Tests Passed:** Cannot run (Dart not available in environment)
+- **Notes:** Implementation completed:
+  - ✅ Added `notAvailable` to HarvestState enum (lib/models/vegetable.dart:18)
+  - ✅ Added `notAvailable` field to HarvestStateTranslation class (lib/models/vegetable.dart:34)
+  - ✅ Updated `getLocalizedHarvestState` switch statement (lib/models/vegetable.dart:168-169)
+  - ✅ Updated JSON schema enum values (schemas/vegetable.schema.json:26)
+  - ✅ Updated JSON schema HarvestStateTranslation definition (schemas/vegetable.schema.json:72, 89-93)
+  - ✅ Added translations in all 4 languages (data/vegetables_complete.json:7, 13, 19, 25)
+  - ✅ Updated test helper functions with notAvailable translations
+  - ✅ Updated documentation comments
+
+**REQUIRED NEXT STEPS (Must be run locally):**
+1. Run `dart pub get` to ensure dependencies are up to date
+2. Run `dart run build_runner build` to regenerate mapper code
+3. Run `dart test` to verify all tests pass
+4. Run `dart analyze` to ensure no linting errors
+
+**Expected Results:**
+- All 9 new TDD tests should pass
+- All existing tests should continue to pass
+- No analyzer errors or warnings
+- Mapper code should include notAvailable in serialization/deserialization

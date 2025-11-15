@@ -3,22 +3,26 @@
     "en": {
       "scarce": "Scarce",
       "enough": "Enough",
-      "plenty": "Plenty"
+      "plenty": "Plenty",
+      "notAvailable": "Not Available"
     },
     "nl": {
       "scarce": "Schaars",
       "enough": "Genoeg",
-      "plenty": "Overvloed"
+      "plenty": "Overvloed",
+      "notAvailable": "Niet beschikbaar"
     },
     "fr": {
       "scarce": "Rare",
       "enough": "Suffisant",
-      "plenty": "Abondant"
+      "plenty": "Abondant",
+      "notAvailable": "Non disponible"
     },
     "de": {
       "scarce": "Knapp",
       "enough": "Ausreichend",
-      "plenty": "Reichlich"
+      "plenty": "Reichlich",
+      "notAvailable": "Nicht verfügbar"
     }
   },
   "vegetables": [

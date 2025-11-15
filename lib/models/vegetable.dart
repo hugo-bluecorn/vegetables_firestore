@@ -13,6 +13,9 @@ enum HarvestState {
 
   /// Plenty availability
   plenty,
+
+  /// Not available
+  notAvailable,
 }
 
 /// Translations for all harvest state values in a specific language
@@ -27,10 +30,14 @@ class HarvestStateTranslation with HarvestStateTranslationMappable {
   /// Translation for 'plenty' harvest state
   final String plenty;
 
+  /// Translation for 'notAvailable' harvest state
+  final String notAvailable;
+
   const HarvestStateTranslation({
     required this.scarce,
     required this.enough,
     required this.plenty,
+    required this.notAvailable,
   });
 
   /// Creates a HarvestStateTranslation from a Map
@@ -99,7 +106,7 @@ class VegetableTranslations with VegetableTranslationsMappable {
 /// - [name]: The default/primary name of the vegetable (typically Dutch, 1-100 characters)
 /// - [createdAt]: ISO 8601 timestamp when the vegetable was created
 /// - [updatedAt]: ISO 8601 timestamp when the vegetable was last updated
-/// - [harvestState]: The harvest state enum (scarce, enough, or plenty)
+/// - [harvestState]: The harvest state enum (scarce, enough, plenty, or notAvailable)
 /// - [translations]: Internationalization data for NL, EN, FR, DE languages
 @MappableClass()
 class Vegetable with VegetableMappable {
@@ -158,6 +165,8 @@ class Vegetable with VegetableMappable {
         return translation.harvestState.enough;
       case HarvestState.plenty:
         return translation.harvestState.plenty;
+      case HarvestState.notAvailable:
+        return translation.harvestState.notAvailable;
     }
   }
 

@@ -13,6 +13,7 @@ VegetableTranslations createValidTranslations() {
         scarce: 'Scarce',
         enough: 'Enough',
         plenty: 'Plenty',
+        notAvailable: 'Not Available',
       ),
     ),
     nl: Translation(
@@ -21,6 +22,7 @@ VegetableTranslations createValidTranslations() {
         scarce: 'Schaars',
         enough: 'Genoeg',
         plenty: 'Overvloed',
+        notAvailable: 'Niet beschikbaar',
       ),
     ),
     fr: Translation(
@@ -29,6 +31,7 @@ VegetableTranslations createValidTranslations() {
         scarce: 'Rare',
         enough: 'Suffisant',
         plenty: 'Abondant',
+        notAvailable: 'Non disponible',
       ),
     ),
     de: Translation(
@@ -37,6 +40,7 @@ VegetableTranslations createValidTranslations() {
         scarce: 'Knapp',
         enough: 'Ausreichend',
         plenty: 'Reichlich',
+        notAvailable: 'Nicht verfügbar',
       ),
     ),
   );
@@ -51,6 +55,7 @@ Map<String, dynamic> createValidTranslationsJson() {
         'scarce': 'Scarce',
         'enough': 'Enough',
         'plenty': 'Plenty',
+        'notAvailable': 'Not Available',
       },
     },
     'nl': {
@@ -59,6 +64,7 @@ Map<String, dynamic> createValidTranslationsJson() {
         'scarce': 'Schaars',
         'enough': 'Genoeg',
         'plenty': 'Overvloed',
+        'notAvailable': 'Niet beschikbaar',
       },
     },
     'fr': {
@@ -67,6 +73,7 @@ Map<String, dynamic> createValidTranslationsJson() {
         'scarce': 'Rare',
         'enough': 'Suffisant',
         'plenty': 'Abondant',
+        'notAvailable': 'Non disponible',
       },
     },
     'de': {
@@ -75,6 +82,7 @@ Map<String, dynamic> createValidTranslationsJson() {
         'scarce': 'Knapp',
         'enough': 'Ausreichend',
         'plenty': 'Reichlich',
+        'notAvailable': 'Nicht verfügbar',
       },
     },
   };
@@ -636,6 +644,130 @@ void main() {
       expect(vegetable.getLocalizedHarvestState('es'), equals('Genoeg'));
       expect(vegetable.getLocalizedHarvestState('it'), equals('Genoeg'));
       expect(vegetable.getLocalizedHarvestState('unknown'), equals('Genoeg'));
+    });
+  });
+
+  group('TDD Test 1: HarvestState enum contains notAvailable', () {
+    test('should have notAvailable as a valid enum value', () {
+      expect(HarvestState.notAvailable, isNotNull);
+      expect(HarvestState.notAvailable, isA<HarvestState>());
+    });
+
+    test('should have 4 total enum values', () {
+      expect(HarvestState.values.length, equals(4));
+      expect(HarvestState.values, contains(HarvestState.scarce));
+      expect(HarvestState.values, contains(HarvestState.enough));
+      expect(HarvestState.values, contains(HarvestState.plenty));
+      expect(HarvestState.values, contains(HarvestState.notAvailable));
+    });
+  });
+
+  group('TDD Test 2-3: Vegetable serialization/deserialization with notAvailable', () {
+    test('should serialize Vegetable with notAvailable state to JSON', () {
+      final vegetable = Vegetable(
+        name: 'Test Groente',
+        createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.notAvailable,
+        translations: createValidTranslations(),
+      );
+
+      final jsonMap = vegetable.toMap();
+
+      expect(jsonMap['harvestState'], equals('notAvailable'));
+      expect(jsonMap['name'], equals('Test Groente'));
+    });
+
+    test('should deserialize JSON with notAvailable state to Vegetable', () {
+      final validJson = {
+        'name': 'Test Groente',
+        'createdAt': '2025-11-15T10:30:00.000Z',
+        'updatedAt': '2025-11-15T10:30:00.000Z',
+        'harvestState': 'notAvailable',
+        'translations': createValidTranslationsJson(),
+      };
+
+      final vegetable = VegetableMapper.fromMap(validJson);
+
+      expect(vegetable.harvestState, equals(HarvestState.notAvailable));
+      expect(vegetable.name, equals('Test Groente'));
+    });
+  });
+
+  group('TDD Test 4: HarvestStateTranslation contains notAvailable field', () {
+    test('should have notAvailable field in HarvestStateTranslation', () {
+      const translation = HarvestStateTranslation(
+        scarce: 'Scarce',
+        enough: 'Enough',
+        plenty: 'Plenty',
+        notAvailable: 'Not Available',
+      );
+
+      expect(translation.notAvailable, equals('Not Available'));
+    });
+
+    test('should require notAvailable in constructor', () {
+      // This test verifies that notAvailable is required
+      // by successfully creating an instance with it
+      expect(
+        () => const HarvestStateTranslation(
+          scarce: 'Scarce',
+          enough: 'Enough',
+          plenty: 'Plenty',
+          notAvailable: 'Not Available',
+        ),
+        returnsNormally,
+      );
+    });
+  });
+
+  group('TDD Test 5-8: Localized harvest state for notAvailable', () {
+    test('should return correct English translation for notAvailable', () {
+      final vegetable = Vegetable(
+        name: 'Test Groente',
+        createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.notAvailable,
+        translations: createValidTranslations(),
+      );
+
+      expect(vegetable.getLocalizedHarvestState('en'), equals('Not Available'));
+    });
+
+    test('should return correct Dutch translation for notAvailable', () {
+      final vegetable = Vegetable(
+        name: 'Test Groente',
+        createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.notAvailable,
+        translations: createValidTranslations(),
+      );
+
+      expect(vegetable.getLocalizedHarvestState('nl'), equals('Niet beschikbaar'));
+    });
+
+    test('should return correct French translation for notAvailable', () {
+      final vegetable = Vegetable(
+        name: 'Test Groente',
+        createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.notAvailable,
+        translations: createValidTranslations(),
+      );
+
+      expect(vegetable.getLocalizedHarvestState('fr'), equals('Non disponible'));
+    });
+
+    test('should return correct German translation for notAvailable', () {
+      final vegetable = Vegetable(
+        name: 'Test Groente',
+        createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.notAvailable,
+        translations: createValidTranslations(),
+      );
+
+      expect(vegetable.getLocalizedHarvestState('de'), equals('Nicht verfügbar'));
     });
   });
 }

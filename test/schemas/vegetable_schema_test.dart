@@ -12,6 +12,7 @@ Map<String, dynamic> createValidTranslations() {
         'scarce': 'Scarce',
         'enough': 'Enough',
         'plenty': 'Plenty',
+        'notAvailable': 'Not Available',
       },
     },
     'nl': {
@@ -20,6 +21,7 @@ Map<String, dynamic> createValidTranslations() {
         'scarce': 'Schaars',
         'enough': 'Genoeg',
         'plenty': 'Overvloed',
+        'notAvailable': 'Niet beschikbaar',
       },
     },
     'fr': {
@@ -28,6 +30,7 @@ Map<String, dynamic> createValidTranslations() {
         'scarce': 'Rare',
         'enough': 'Suffisant',
         'plenty': 'Abondant',
+        'notAvailable': 'Non disponible',
       },
     },
     'de': {
@@ -36,6 +39,7 @@ Map<String, dynamic> createValidTranslations() {
         'scarce': 'Knapp',
         'enough': 'Ausreichend',
         'plenty': 'Reichlich',
+        'notAvailable': 'Nicht verfügbar',
       },
     },
   };
@@ -89,7 +93,8 @@ void main() {
       expect(enumValues, contains('scarce'));
       expect(enumValues, contains('enough'));
       expect(enumValues, contains('plenty'));
-      expect(enumValues.length, equals(3));
+      expect(enumValues, contains('notAvailable'));
+      expect(enumValues.length, equals(4));
     });
 
     test('should have minLength and maxLength constraints for name', () {
@@ -147,7 +152,7 @@ void main() {
     });
 
     test('should validate all harvestState enum values', () {
-      for (final state in ['scarce', 'enough', 'plenty']) {
+      for (final state in ['scarce', 'enough', 'plenty', 'notAvailable']) {
         final validVegetable = {
           'name': 'Test Groente',
           'createdAt': '2025-11-15T10:30:00Z',
@@ -159,6 +164,30 @@ void main() {
         final result = vegetableSchema.validate(validVegetable);
         expect(result.isValid, isTrue, reason: 'harvestState "$state" should be valid');
       }
+    });
+  });
+
+  group('TDD Test 9: JSON Schema validation with notAvailable', () {
+    test('should validate vegetable JSON with notAvailable harvestState', () {
+      final validVegetable = {
+        'name': 'Test Groente',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'notAvailable',
+        'translations': createValidTranslations(),
+      };
+
+      final result = vegetableSchema.validate(validVegetable);
+      expect(result.isValid, isTrue, reason: 'notAvailable should be recognized as valid harvest state');
+      expect(result.errors, isEmpty);
+    });
+
+    test('should include notAvailable in schema enum values', () {
+      final properties = schemaJson['properties'] as Map<String, dynamic>;
+      final harvestState = properties['harvestState'] as Map<String, dynamic>;
+      final enumValues = harvestState['enum'] as List;
+
+      expect(enumValues, contains('notAvailable'), reason: 'Schema should include notAvailable in enum');
     });
   });
 
