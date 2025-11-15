@@ -109,6 +109,30 @@ bool isInvalid = isValidVegetableName('123'); // false
 
 ## Development
 
+### Test-Driven Development Workflow
+
+This project follows Test-Driven Development (TDD) with structured slash commands:
+
+```bash
+# Create new TDD task specification
+/tdd-new [feature-name]
+
+# Implement TDD task (follows Red-Green-Refactor cycle)
+/tdd-implement .claude/tdd-tasks/[task-name].md
+
+# Run tests for TDD task
+/tdd-test [test-file-path]
+```
+
+**TDD Process:**
+1. Create task specification with `/tdd-new`
+2. Define test specifications using Given-When-Then format
+3. Implement with `/tdd-implement` following:
+   - **RED**: Write tests first (they will fail)
+   - **GREEN**: Implement minimal code to pass tests
+   - **REFACTOR**: Improve code while keeping tests green
+4. Verify with `/tdd-test`
+
 ### Running Tests
 
 ```bash
@@ -168,6 +192,9 @@ vegetables_firestore/
 │   ├── vegetables_complete.json     # Complete vegetable data
 │   ├── vegetable_translations.json  # Translation data
 │   └── vegetable_translations.csv   # CSV translations
+├── .claude/
+│   ├── tdd-tasks/                   # TDD task specifications
+│   └── commands/                    # TDD workflow commands
 └── pubspec.yaml                     # Dependencies
 ```
 
@@ -201,13 +228,25 @@ The `isValidVegetableName()` function validates names with these rules:
 
 ## Contributing
 
-This project follows a Test-Driven Development (TDD) approach:
+This project follows a Test-Driven Development (TDD) approach with structured workflows:
 
-1. Write tests first
-2. Implement functionality
-3. Refactor as needed
-4. Run full test suite
-5. Ensure code analysis passes
+### Quick Start for Contributors
+
+1. **Create a new feature task**: `/tdd-new [feature-name]`
+2. **Define test specifications** in the generated `.claude/tdd-tasks/[feature-name].md`
+3. **Implement the feature**: `/tdd-implement .claude/tdd-tasks/[feature-name].md`
+4. **Verify tests pass**: `/tdd-test [test-file-path]`
+
+### TDD Best Practices
+
+- Write tests before implementation (Red-Green-Refactor)
+- Keep iterations small and focused
+- Run tests frequently after each change
+- Always regenerate mapper code after model changes (`dart run build_runner build`)
+- Document decisions in TDD task files
+- Ensure code analysis passes (`dart analyze`)
+
+See `CLAUDE.md` for complete development guidelines.
 
 ## License
 

@@ -52,6 +52,18 @@ dart analyze
 dart format .
 ```
 
+### TDD Workflow Commands
+```bash
+# Create new TDD task specification
+/tdd-new [feature-name]
+
+# Implement TDD task (follows Red-Green-Refactor cycle)
+/tdd-implement .claude/tdd-tasks/[task-name].md
+
+# Run tests for TDD task
+/tdd-test [test-file-path]
+```
+
 ## Architecture
 
 ### Directory Structure
@@ -75,6 +87,11 @@ dart format .
   - `vegetables_complete.json`: Complete vegetable data with translations
   - `vegetable_translations.json`: Translation data structure
   - `vegetable_translations.csv`: CSV format translations
+
+- **`.claude/tdd-tasks/`**: TDD task specifications
+  - Task files follow Given-When-Then format
+  - Track implementation status and test results
+  - Use with `/tdd-implement` slash command
 
 ### Key Models
 
@@ -106,11 +123,38 @@ Methods:
 
 ## Development Workflow
 
+### Standard Workflow
 1. Make model changes in `lib/models/vegetable.dart`
 2. Run code generation: `dart run build_runner build`
 3. Write tests in `test/`
 4. Run tests: `dart test`
 5. Validate code: `dart analyze`
+
+### TDD Workflow (Recommended)
+This project follows Test-Driven Development with a structured approach:
+
+1. **Create TDD Task:** `/tdd-new [feature-name]`
+   - Generates task specification in `.claude/tdd-tasks/`
+   - Define test specifications using Given-When-Then format
+
+2. **Implement Feature:** `/tdd-implement .claude/tdd-tasks/[task-name].md`
+   - Follows Red-Green-Refactor cycle:
+     - **RED:** Write tests first (they will fail)
+     - **GREEN:** Implement minimal code to pass tests
+     - **REFACTOR:** Improve code while keeping tests green
+   - Automatically runs `dart test`, `dart analyze`, and `dart run build_runner build`
+   - Updates task status and results
+
+3. **Verify Tests:** `/tdd-test [test-file-path]`
+   - Run specific test file or all tests
+   - Check linting and code quality
+
+**TDD Best Practices:**
+- Write tests before implementation
+- Keep iterations small and focused
+- Run tests frequently after each change
+- Always regenerate mapper code after model changes
+- Document decisions in TDD task files
 
 ## Linting
 

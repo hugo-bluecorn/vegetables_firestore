@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **TDD workflow documentation**: Comprehensive documentation added to CLAUDE.md and README.md (2025-11-15)
+  - Documented `/tdd-new`, `/tdd-implement`, and `/tdd-test` slash commands
+  - Added TDD best practices and workflow guidelines
+  - Included Red-Green-Refactor cycle documentation
+  - Updated project structure to include `.claude/tdd-tasks/` directory
 - **`notAvailable` harvest state**: New harvest state to represent vegetables that are currently not available (2025-11-15)
   - Added to `HarvestState` enum with translations in all 4 languages
   - English: "Not Available", Dutch: "Niet beschikbaar", French: "Non disponible", German: "Nicht verfügbar"
