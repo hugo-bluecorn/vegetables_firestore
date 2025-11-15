@@ -4,6 +4,82 @@ import 'package:test/test.dart';
 import 'package:json_schema/json_schema.dart';
 import 'package:vegetables_firestore/models/vegetable.dart';
 
+/// Helper function to create valid translations for testing
+VegetableTranslations createValidTranslations() {
+  return const VegetableTranslations(
+    en: Translation(
+      name: 'Tomato',
+      harvestState: HarvestStateTranslation(
+        scarce: 'Scarce',
+        enough: 'Enough',
+        plenty: 'Plenty',
+      ),
+    ),
+    nl: Translation(
+      name: 'Tomaat',
+      harvestState: HarvestStateTranslation(
+        scarce: 'Schaars',
+        enough: 'Genoeg',
+        plenty: 'Overvloed',
+      ),
+    ),
+    fr: Translation(
+      name: 'Tomate',
+      harvestState: HarvestStateTranslation(
+        scarce: 'Rare',
+        enough: 'Suffisant',
+        plenty: 'Abondant',
+      ),
+    ),
+    de: Translation(
+      name: 'Tomate',
+      harvestState: HarvestStateTranslation(
+        scarce: 'Knapp',
+        enough: 'Ausreichend',
+        plenty: 'Reichlich',
+      ),
+    ),
+  );
+}
+
+/// Helper function to create valid translations JSON for testing
+Map<String, dynamic> createValidTranslationsJson() {
+  return {
+    'en': {
+      'name': 'Tomato',
+      'harvestState': {
+        'scarce': 'Scarce',
+        'enough': 'Enough',
+        'plenty': 'Plenty',
+      },
+    },
+    'nl': {
+      'name': 'Tomaat',
+      'harvestState': {
+        'scarce': 'Schaars',
+        'enough': 'Genoeg',
+        'plenty': 'Overvloed',
+      },
+    },
+    'fr': {
+      'name': 'Tomate',
+      'harvestState': {
+        'scarce': 'Rare',
+        'enough': 'Suffisant',
+        'plenty': 'Abondant',
+      },
+    },
+    'de': {
+      'name': 'Tomate',
+      'harvestState': {
+        'scarce': 'Knapp',
+        'enough': 'Ausreichend',
+        'plenty': 'Reichlich',
+      },
+    },
+  };
+}
+
 void main() {
   late JsonSchema vegetableSchema;
 
@@ -22,6 +98,7 @@ void main() {
         'createdAt': '2025-11-15T10:30:00.000Z',
         'updatedAt': '2025-11-15T10:30:00.000Z',
         'harvestState': 'enough',
+        'translations': createValidTranslationsJson(),
       };
 
       final vegetable = VegetableMapper.fromMap(validJson);
@@ -31,6 +108,7 @@ void main() {
       expect(vegetable.createdAt, isA<DateTime>());
       expect(vegetable.updatedAt, isA<DateTime>());
       expect(vegetable.harvestState, equals(HarvestState.enough));
+      expect(vegetable.translations, isA<VegetableTranslations>());
     });
 
     test('should parse timestamps correctly as DateTime objects', () {
@@ -39,6 +117,7 @@ void main() {
         'createdAt': '2025-11-15T10:30:00.000Z',
         'updatedAt': '2025-11-15T12:45:30.000Z',
         'harvestState': 'plenty',
+        'translations': createValidTranslationsJson(),
       };
 
       final vegetable = VegetableMapper.fromMap(validJson);
@@ -60,6 +139,7 @@ void main() {
         'createdAt': '2025-11-15T10:30:00.000Z',
         'updatedAt': '2025-11-15T10:30:00.000Z',
         'harvestState': 'scarce',
+        'translations': createValidTranslationsJson(),
       });
 
       final vegetable = VegetableMapper.fromJson(jsonString);
@@ -76,6 +156,7 @@ void main() {
         'createdAt': '2025-11-15T10:30:00.000Z',
         'updatedAt': '2025-11-15T10:30:00.000Z',
         'harvestState': 'enough',
+        'translations': createValidTranslationsJson(),
       };
 
       final vegetable = VegetableMapper.fromMap(validJson);
@@ -97,6 +178,7 @@ void main() {
           'createdAt': '2025-11-15T10:30:00.000Z',
           'updatedAt': '2025-11-15T10:30:00.000Z',
           'harvestState': entry.key,
+          'translations': createValidTranslationsJson(),
         };
 
         final vegetable = VegetableMapper.fromMap(validJson);
@@ -113,6 +195,7 @@ void main() {
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.enough,
+        translations: createValidTranslations(),
       );
 
       final jsonMap = vegetable.toMap();
@@ -122,6 +205,7 @@ void main() {
       expect(jsonMap['createdAt'], isNotNull);
       expect(jsonMap['updatedAt'], isNotNull);
       expect(jsonMap['harvestState'], equals('enough'));
+      expect(jsonMap['translations'], isNotNull);
     });
 
     test('should produce JSON that passes schema validation', () {
@@ -130,6 +214,7 @@ void main() {
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T12:45:30.000Z'),
         harvestState: HarvestState.plenty,
+        translations: createValidTranslations(),
       );
 
       final jsonMap = vegetable.toMap();
@@ -147,6 +232,7 @@ void main() {
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.scarce,
+        translations: createValidTranslations(),
       );
 
       final jsonMap = vegetable.toMap();
@@ -166,6 +252,7 @@ void main() {
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.enough,
+        translations: createValidTranslations(),
       );
 
       final jsonString = vegetable.toJson();
@@ -184,16 +271,18 @@ void main() {
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.plenty,
+        translations: createValidTranslations(),
       );
 
       final jsonMap = vegetable.toMap();
 
-      // Should only have the four properties defined in schema
-      expect(jsonMap.keys.length, equals(4));
+      // Should have the five properties defined in schema
+      expect(jsonMap.keys.length, equals(5));
       expect(jsonMap.containsKey('name'), isTrue);
       expect(jsonMap.containsKey('createdAt'), isTrue);
       expect(jsonMap.containsKey('updatedAt'), isTrue);
       expect(jsonMap.containsKey('harvestState'), isTrue);
+      expect(jsonMap.containsKey('translations'), isTrue);
     });
 
     test('should serialize all harvestState enum values correctly', () {
@@ -206,6 +295,7 @@ void main() {
           createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
           updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
           harvestState: states[i],
+          translations: createValidTranslations(),
         );
 
         final jsonMap = vegetable.toMap();
@@ -226,6 +316,7 @@ void main() {
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T12:45:30.000Z'),
         harvestState: HarvestState.enough,
+        translations: createValidTranslations(),
       );
 
       // Serialize to JSON
@@ -254,6 +345,7 @@ void main() {
         createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
         harvestState: HarvestState.plenty,
+        translations: createValidTranslations(),
       );
 
       // Perform multiple round-trips
@@ -278,6 +370,7 @@ void main() {
         createdAt: DateTime.parse('2020-01-01T00:00:00.000Z'),
         updatedAt: DateTime.parse('2025-12-31T23:59:59.999Z'),
         harvestState: HarvestState.scarce,
+        translations: createValidTranslations(),
       );
 
       final jsonMap = original.toMap();
@@ -309,6 +402,7 @@ void main() {
           createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
           updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
           harvestState: HarvestState.enough,
+          translations: createValidTranslations(),
         );
 
         final jsonMap = original.toMap();
@@ -330,6 +424,7 @@ void main() {
           createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
           updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
           harvestState: state,
+          translations: createValidTranslations(),
         );
 
         final jsonMap = original.toMap();
@@ -340,6 +435,207 @@ void main() {
         expect(roundTripped.harvestState, equals(state),
           reason: 'harvestState $state should be preserved');
       }
+    });
+  });
+
+  group('Test 8: Translation model serialization', () {
+    test('should serialize Vegetable with translations to valid JSON', () {
+      final vegetable = Vegetable(
+        name: 'Tomato',
+        createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.enough,
+        translations: createValidTranslations(),
+      );
+
+      final jsonMap = vegetable.toMap();
+
+      // Validate against schema
+      final result = vegetableSchema.validate(jsonMap);
+      expect(result.isValid, isTrue, reason: 'JSON with translations should pass validation');
+      expect(result.errors, isEmpty);
+
+      // Check translations are present in JSON
+      expect(jsonMap['translations'], isNotNull);
+      expect(jsonMap['translations']['en'], isNotNull);
+      expect(jsonMap['translations']['nl'], isNotNull);
+      expect(jsonMap['translations']['fr'], isNotNull);
+      expect(jsonMap['translations']['de'], isNotNull);
+    });
+  });
+
+  group('Test 9: Translation model deserialization', () {
+    test('should deserialize JSON with translations to Vegetable model', () {
+      final validJson = {
+        'name': 'Tomato',
+        'createdAt': '2025-11-15T10:30:00.000Z',
+        'updatedAt': '2025-11-15T10:30:00.000Z',
+        'harvestState': 'enough',
+        'translations': createValidTranslationsJson(),
+      };
+
+      final vegetable = VegetableMapper.fromMap(validJson);
+
+      expect(vegetable.translations.en.name, equals('Tomato'));
+      expect(vegetable.translations.nl.name, equals('Tomaat'));
+      expect(vegetable.translations.fr.name, equals('Tomate'));
+      expect(vegetable.translations.de.name, equals('Tomate'));
+    });
+
+    test('should deserialize harvestState translations correctly', () {
+      final validJson = {
+        'name': 'Tomato',
+        'createdAt': '2025-11-15T10:30:00.000Z',
+        'updatedAt': '2025-11-15T10:30:00.000Z',
+        'harvestState': 'enough',
+        'translations': createValidTranslationsJson(),
+      };
+
+      final vegetable = VegetableMapper.fromMap(validJson);
+
+      // Check English harvest state translations
+      expect(vegetable.translations.en.harvestState.scarce, equals('Scarce'));
+      expect(vegetable.translations.en.harvestState.enough, equals('Enough'));
+      expect(vegetable.translations.en.harvestState.plenty, equals('Plenty'));
+
+      // Check Dutch harvest state translations
+      expect(vegetable.translations.nl.harvestState.scarce, equals('Schaars'));
+      expect(vegetable.translations.nl.harvestState.enough, equals('Genoeg'));
+      expect(vegetable.translations.nl.harvestState.plenty, equals('Overvloed'));
+
+      // Check French harvest state translations
+      expect(vegetable.translations.fr.harvestState.scarce, equals('Rare'));
+      expect(vegetable.translations.fr.harvestState.enough, equals('Suffisant'));
+      expect(vegetable.translations.fr.harvestState.plenty, equals('Abondant'));
+
+      // Check German harvest state translations
+      expect(vegetable.translations.de.harvestState.scarce, equals('Knapp'));
+      expect(vegetable.translations.de.harvestState.enough, equals('Ausreichend'));
+      expect(vegetable.translations.de.harvestState.plenty, equals('Reichlich'));
+    });
+  });
+
+  group('Test 10: Translation round-trip serialization', () {
+    test('should preserve all translation data through round-trip', () {
+      final original = Vegetable(
+        name: 'Tomato',
+        createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.enough,
+        translations: createValidTranslations(),
+      );
+
+      final jsonMap = original.toMap();
+      final result = vegetableSchema.validate(jsonMap);
+      expect(result.isValid, isTrue);
+
+      final roundTripped = VegetableMapper.fromMap(jsonMap);
+
+      // Verify all translations preserved
+      expect(roundTripped.translations.en.name, equals(original.translations.en.name));
+      expect(roundTripped.translations.nl.name, equals(original.translations.nl.name));
+      expect(roundTripped.translations.fr.name, equals(original.translations.fr.name));
+      expect(roundTripped.translations.de.name, equals(original.translations.de.name));
+
+      // Verify harvest state translations preserved
+      expect(roundTripped.translations.en.harvestState.scarce, equals(original.translations.en.harvestState.scarce));
+      expect(roundTripped.translations.nl.harvestState.enough, equals(original.translations.nl.harvestState.enough));
+      expect(roundTripped.translations.fr.harvestState.plenty, equals(original.translations.fr.harvestState.plenty));
+      expect(roundTripped.translations.de.harvestState.scarce, equals(original.translations.de.harvestState.scarce));
+    });
+  });
+
+  group('Test 11: Localized name retrieval', () {
+    test('should return correct translation for each language code', () {
+      final vegetable = Vegetable(
+        name: 'Tomato',
+        createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.enough,
+        translations: createValidTranslations(),
+      );
+
+      expect(vegetable.getLocalizedName('en'), equals('Tomato'));
+      expect(vegetable.getLocalizedName('nl'), equals('Tomaat'));
+      expect(vegetable.getLocalizedName('fr'), equals('Tomate'));
+      expect(vegetable.getLocalizedName('de'), equals('Tomate'));
+    });
+  });
+
+  group('Test 12: Localized harvest state retrieval', () {
+    test('should return correct harvest state translation for each language', () {
+      final vegetable = Vegetable(
+        name: 'Tomato',
+        createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.enough,
+        translations: createValidTranslations(),
+      );
+
+      expect(vegetable.getLocalizedHarvestState('en'), equals('Enough'));
+      expect(vegetable.getLocalizedHarvestState('nl'), equals('Genoeg'));
+      expect(vegetable.getLocalizedHarvestState('fr'), equals('Suffisant'));
+      expect(vegetable.getLocalizedHarvestState('de'), equals('Ausreichend'));
+    });
+
+    test('should return correct translation for scarce harvest state', () {
+      final vegetable = Vegetable(
+        name: 'Tomato',
+        createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.scarce,
+        translations: createValidTranslations(),
+      );
+
+      expect(vegetable.getLocalizedHarvestState('en'), equals('Scarce'));
+      expect(vegetable.getLocalizedHarvestState('nl'), equals('Schaars'));
+      expect(vegetable.getLocalizedHarvestState('fr'), equals('Rare'));
+      expect(vegetable.getLocalizedHarvestState('de'), equals('Knapp'));
+    });
+
+    test('should return correct translation for plenty harvest state', () {
+      final vegetable = Vegetable(
+        name: 'Tomato',
+        createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.plenty,
+        translations: createValidTranslations(),
+      );
+
+      expect(vegetable.getLocalizedHarvestState('en'), equals('Plenty'));
+      expect(vegetable.getLocalizedHarvestState('nl'), equals('Overvloed'));
+      expect(vegetable.getLocalizedHarvestState('fr'), equals('Abondant'));
+      expect(vegetable.getLocalizedHarvestState('de'), equals('Reichlich'));
+    });
+  });
+
+  group('Test 13: Fallback for unknown language codes', () {
+    test('should fall back to primary name for unknown language code', () {
+      final vegetable = Vegetable(
+        name: 'Tomato',
+        createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.enough,
+        translations: createValidTranslations(),
+      );
+
+      expect(vegetable.getLocalizedName('es'), equals('Tomato'));
+      expect(vegetable.getLocalizedName('it'), equals('Tomato'));
+      expect(vegetable.getLocalizedName('unknown'), equals('Tomato'));
+    });
+
+    test('should fall back to English translation for unknown language code in harvest state', () {
+      final vegetable = Vegetable(
+        name: 'Tomato',
+        createdAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        updatedAt: DateTime.parse('2025-11-15T10:30:00.000Z'),
+        harvestState: HarvestState.enough,
+        translations: createValidTranslations(),
+      );
+
+      expect(vegetable.getLocalizedHarvestState('es'), equals('Enough'));
+      expect(vegetable.getLocalizedHarvestState('it'), equals('Enough'));
+      expect(vegetable.getLocalizedHarvestState('unknown'), equals('Enough'));
     });
   });
 }

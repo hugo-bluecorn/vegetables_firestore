@@ -3,6 +3,44 @@ import 'dart:io';
 import 'package:test/test.dart';
 import 'package:json_schema/json_schema.dart';
 
+/// Helper function to create valid translations for testing
+Map<String, dynamic> createValidTranslations() {
+  return {
+    'en': {
+      'name': 'Tomato',
+      'harvestState': {
+        'scarce': 'Scarce',
+        'enough': 'Enough',
+        'plenty': 'Plenty',
+      },
+    },
+    'nl': {
+      'name': 'Tomaat',
+      'harvestState': {
+        'scarce': 'Schaars',
+        'enough': 'Genoeg',
+        'plenty': 'Overvloed',
+      },
+    },
+    'fr': {
+      'name': 'Tomate',
+      'harvestState': {
+        'scarce': 'Rare',
+        'enough': 'Suffisant',
+        'plenty': 'Abondant',
+      },
+    },
+    'de': {
+      'name': 'Tomate',
+      'harvestState': {
+        'scarce': 'Knapp',
+        'enough': 'Ausreichend',
+        'plenty': 'Reichlich',
+      },
+    },
+  };
+}
+
 void main() {
   late JsonSchema vegetableSchema;
   late Map<String, dynamic> schemaJson;
@@ -21,13 +59,14 @@ void main() {
       expect(schemaJson['\$schema'], equals('http://json-schema.org/draft-07/schema#'));
     });
 
-    test('should define required fields: name, createdAt, updatedAt, harvestState', () {
+    test('should define required fields: name, createdAt, updatedAt, harvestState, translations', () {
       final required = schemaJson['required'] as List;
       expect(required, contains('name'));
       expect(required, contains('createdAt'));
       expect(required, contains('updatedAt'));
       expect(required, contains('harvestState'));
-      expect(required.length, equals(4));
+      expect(required, contains('translations'));
+      expect(required.length, equals(5));
     });
 
     test('should specify proper types for each field', () {
@@ -73,6 +112,7 @@ void main() {
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
+        'translations': createValidTranslations(),
       };
 
       final result = vegetableSchema.validate(validVegetable);
@@ -86,6 +126,7 @@ void main() {
         'createdAt': '2025-01-01T00:00:00Z',
         'updatedAt': '2025-01-01T00:00:00Z',
         'harvestState': 'plenty',
+        'translations': createValidTranslations(),
       };
 
       final result = vegetableSchema.validate(validVegetable);
@@ -98,6 +139,7 @@ void main() {
         'createdAt': '2025-11-15T10:00:00Z',
         'updatedAt': '2025-11-15T12:00:00Z',
         'harvestState': 'scarce',
+        'translations': createValidTranslations(),
       };
 
       final result = vegetableSchema.validate(validVegetable);
@@ -111,6 +153,7 @@ void main() {
           'createdAt': '2025-11-15T10:30:00Z',
           'updatedAt': '2025-11-15T10:30:00Z',
           'harvestState': state,
+          'translations': createValidTranslations(),
         };
 
         final result = vegetableSchema.validate(validVegetable);
@@ -125,6 +168,7 @@ void main() {
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
+        'translations': createValidTranslations(),
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -138,6 +182,7 @@ void main() {
         'name': 'Carrot',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
+        'translations': createValidTranslations(),
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -150,6 +195,7 @@ void main() {
         'name': 'Carrot',
         'createdAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
+        'translations': createValidTranslations(),
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -162,6 +208,7 @@ void main() {
         'name': 'Carrot',
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
+        'translations': createValidTranslations(),
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -169,12 +216,25 @@ void main() {
       expect(result.errors.first.message, contains('harvestState'));
     });
 
+    test('should reject JSON missing translations field', () {
+      final invalidVegetable = {
+        'name': 'Carrot',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
+      };
+
+      final result = vegetableSchema.validate(invalidVegetable);
+      expect(result.isValid, isFalse);
+      expect(result.errors.first.message, contains('translations'));
+    });
+
     test('should reject JSON missing all fields', () {
       final invalidVegetable = <String, dynamic>{};
 
       final result = vegetableSchema.validate(invalidVegetable);
       expect(result.isValid, isFalse);
-      expect(result.errors.length, greaterThanOrEqualTo(4));
+      expect(result.errors.length, greaterThanOrEqualTo(5));
     });
   });
 
@@ -185,6 +245,7 @@ void main() {
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
+        'translations': createValidTranslations(),
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -197,6 +258,7 @@ void main() {
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
+        'translations': createValidTranslations(),
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -209,6 +271,7 @@ void main() {
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
+        'translations': createValidTranslations(),
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -221,6 +284,7 @@ void main() {
         'createdAt': 'not-a-valid-timestamp',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
+        'translations': createValidTranslations(),
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -233,6 +297,7 @@ void main() {
         'createdAt': 1700000000,
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
+        'translations': createValidTranslations(),
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -245,6 +310,7 @@ void main() {
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'abundant', // Invalid enum value
+        'translations': createValidTranslations(),
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -257,6 +323,7 @@ void main() {
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 1,
+        'translations': createValidTranslations(),
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -269,6 +336,7 @@ void main() {
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': '',
+        'translations': createValidTranslations(),
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
@@ -281,11 +349,255 @@ void main() {
         'createdAt': '2025-11-15T10:30:00Z',
         'updatedAt': '2025-11-15T10:30:00Z',
         'harvestState': 'enough',
+        'translations': createValidTranslations(),
         'extraField': 'should not be allowed',
       };
 
       final result = vegetableSchema.validate(invalidVegetable);
       expect(result.isValid, isFalse, reason: 'Additional properties should not be allowed');
+    });
+  });
+
+  group('Test 5: Translation validation - valid translations', () {
+    test('should validate complete translations with all four languages', () {
+      final validVegetable = {
+        'name': 'Tomato',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
+        'translations': createValidTranslations(),
+      };
+
+      final result = vegetableSchema.validate(validVegetable);
+      expect(result.isValid, isTrue);
+      expect(result.errors, isEmpty);
+    });
+  });
+
+  group('Test 6: Translation validation - missing languages', () {
+    test('should reject translations missing "de" language', () {
+      final invalidVegetable = {
+        'name': 'Tomato',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
+        'translations': {
+          'en': {
+            'name': 'Tomato',
+            'harvestState': {
+              'scarce': 'Scarce',
+              'enough': 'Enough',
+              'plenty': 'Plenty',
+            },
+          },
+          'nl': {
+            'name': 'Tomaat',
+            'harvestState': {
+              'scarce': 'Schaars',
+              'enough': 'Genoeg',
+              'plenty': 'Overvloed',
+            },
+          },
+          'fr': {
+            'name': 'Tomate',
+            'harvestState': {
+              'scarce': 'Rare',
+              'enough': 'Suffisant',
+              'plenty': 'Abondant',
+            },
+          },
+          // Missing 'de'
+        },
+      };
+
+      final result = vegetableSchema.validate(invalidVegetable);
+      expect(result.isValid, isFalse);
+    });
+
+    test('should reject translations missing "nl" language', () {
+      final invalidVegetable = {
+        'name': 'Tomato',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
+        'translations': {
+          'en': {
+            'name': 'Tomato',
+            'harvestState': {
+              'scarce': 'Scarce',
+              'enough': 'Enough',
+              'plenty': 'Plenty',
+            },
+          },
+          'fr': {
+            'name': 'Tomate',
+            'harvestState': {
+              'scarce': 'Rare',
+              'enough': 'Suffisant',
+              'plenty': 'Abondant',
+            },
+          },
+          'de': {
+            'name': 'Tomate',
+            'harvestState': {
+              'scarce': 'Knapp',
+              'enough': 'Ausreichend',
+              'plenty': 'Reichlich',
+            },
+          },
+          // Missing 'nl'
+        },
+      };
+
+      final result = vegetableSchema.validate(invalidVegetable);
+      expect(result.isValid, isFalse);
+    });
+  });
+
+  group('Test 7: Translation validation - missing translation fields', () {
+    test('should reject translation missing "name" field', () {
+      final translations = createValidTranslations();
+      (translations['nl'] as Map<String, dynamic>).remove('name');
+
+      final invalidVegetable = {
+        'name': 'Tomato',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
+        'translations': translations,
+      };
+
+      final result = vegetableSchema.validate(invalidVegetable);
+      expect(result.isValid, isFalse);
+    });
+
+    test('should reject translation missing "harvestState" field', () {
+      final translations = createValidTranslations();
+      (translations['fr'] as Map<String, dynamic>).remove('harvestState');
+
+      final invalidVegetable = {
+        'name': 'Tomato',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
+        'translations': translations,
+      };
+
+      final result = vegetableSchema.validate(invalidVegetable);
+      expect(result.isValid, isFalse);
+    });
+  });
+
+  group('Test 8: Translation validation - missing harvest state translations', () {
+    test('should reject harvestState translation missing "plenty" value', () {
+      final translations = createValidTranslations();
+      final enHarvestState = (translations['en'] as Map<String, dynamic>)['harvestState'] as Map<String, dynamic>;
+      enHarvestState.remove('plenty');
+
+      final invalidVegetable = {
+        'name': 'Tomato',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
+        'translations': translations,
+      };
+
+      final result = vegetableSchema.validate(invalidVegetable);
+      expect(result.isValid, isFalse);
+    });
+
+    test('should reject harvestState translation missing "scarce" value', () {
+      final translations = createValidTranslations();
+      final deHarvestState = (translations['de'] as Map<String, dynamic>)['harvestState'] as Map<String, dynamic>;
+      deHarvestState.remove('scarce');
+
+      final invalidVegetable = {
+        'name': 'Tomato',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
+        'translations': translations,
+      };
+
+      final result = vegetableSchema.validate(invalidVegetable);
+      expect(result.isValid, isFalse);
+    });
+
+    test('should reject harvestState translation missing "enough" value', () {
+      final translations = createValidTranslations();
+      final nlHarvestState = (translations['nl'] as Map<String, dynamic>)['harvestState'] as Map<String, dynamic>;
+      nlHarvestState.remove('enough');
+
+      final invalidVegetable = {
+        'name': 'Tomato',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
+        'translations': translations,
+      };
+
+      final result = vegetableSchema.validate(invalidVegetable);
+      expect(result.isValid, isFalse);
+    });
+  });
+
+  group('Test 9: Translation validation - extra languages not allowed', () {
+    test('should reject translations with extra language "es"', () {
+      final translations = createValidTranslations();
+      translations['es'] = {
+        'name': 'Tomate',
+        'harvestState': {
+          'scarce': 'Escaso',
+          'enough': 'Suficiente',
+          'plenty': 'Abundante',
+        },
+      };
+
+      final invalidVegetable = {
+        'name': 'Tomato',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
+        'translations': translations,
+      };
+
+      final result = vegetableSchema.validate(invalidVegetable);
+      expect(result.isValid, isFalse, reason: 'Additional language should not be allowed');
+    });
+  });
+
+  group('Test 10: Translation validation - empty string translations', () {
+    test('should reject translation with empty name string', () {
+      final translations = createValidTranslations();
+      (translations['en'] as Map<String, dynamic>)['name'] = '';
+
+      final invalidVegetable = {
+        'name': 'Tomato',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
+        'translations': translations,
+      };
+
+      final result = vegetableSchema.validate(invalidVegetable);
+      expect(result.isValid, isFalse, reason: 'Empty name should fail minLength constraint');
+    });
+
+    test('should reject harvestState translation with empty string value', () {
+      final translations = createValidTranslations();
+      final frHarvestState = (translations['fr'] as Map<String, dynamic>)['harvestState'] as Map<String, dynamic>;
+      frHarvestState['scarce'] = '';
+
+      final invalidVegetable = {
+        'name': 'Tomato',
+        'createdAt': '2025-11-15T10:30:00Z',
+        'updatedAt': '2025-11-15T10:30:00Z',
+        'harvestState': 'enough',
+        'translations': translations,
+      };
+
+      final result = vegetableSchema.validate(invalidVegetable);
+      expect(result.isValid, isFalse, reason: 'Empty harvestState value should fail minLength constraint');
     });
   });
 }

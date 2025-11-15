@@ -2,14 +2,14 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://example.com/vegetable.schema.json",
   "title": "Vegetable",
-  "description": "A vegetable with name and timestamps",
+  "description": "A vegetable with name, timestamps, and internationalization support",
   "type": "object",
   "properties": {
     "name": {
       "type": "string",
       "minLength": 1,
       "maxLength": 100,
-      "description": "The name of the vegetable"
+      "description": "The default/primary name of the vegetable (typically English)"
     },
     "createdAt": {
       "type": "string",
@@ -24,9 +24,70 @@
     "harvestState": {
       "type": "string",
       "enum": ["scarce", "enough", "plenty"],
-      "description": "The harvest state of the vegetable"
+      "description": "The default harvest state of the vegetable (typically English)"
+    },
+    "translations": {
+      "type": "object",
+      "description": "Internationalization data for supported languages",
+      "required": ["en", "nl", "fr", "de"],
+      "properties": {
+        "en": {
+          "$ref": "#/definitions/Translation"
+        },
+        "nl": {
+          "$ref": "#/definitions/Translation"
+        },
+        "fr": {
+          "$ref": "#/definitions/Translation"
+        },
+        "de": {
+          "$ref": "#/definitions/Translation"
+        }
+      },
+      "additionalProperties": false
     }
   },
-  "required": ["name", "createdAt", "updatedAt", "harvestState"],
-  "additionalProperties": false
+  "required": ["name", "createdAt", "updatedAt", "harvestState", "translations"],
+  "additionalProperties": false,
+  "definitions": {
+    "Translation": {
+      "type": "object",
+      "description": "Translation data for a specific language",
+      "required": ["name", "harvestState"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The translated name of the vegetable"
+        },
+        "harvestState": {
+          "$ref": "#/definitions/HarvestStateTranslation"
+        }
+      },
+      "additionalProperties": false
+    },
+    "HarvestStateTranslation": {
+      "type": "object",
+      "description": "Translations for all harvest state values",
+      "required": ["scarce", "enough", "plenty"],
+      "properties": {
+        "scarce": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Translation for 'scarce' harvest state"
+        },
+        "enough": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Translation for 'enough' harvest state"
+        },
+        "plenty": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Translation for 'plenty' harvest state"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
 }
