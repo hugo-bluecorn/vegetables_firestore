@@ -8,7 +8,7 @@ import 'package:vegetables_firestore/models/vegetable.dart';
 VegetableTranslations createValidTranslations() {
   return const VegetableTranslations(
     en: Translation(
-      name: 'Tomaat',
+      name: 'Tomato',
       harvestState: HarvestStateTranslation(
         scarce: 'Scarce',
         enough: 'Enough',
@@ -46,7 +46,7 @@ VegetableTranslations createValidTranslations() {
 Map<String, dynamic> createValidTranslationsJson() {
   return {
     'en': {
-      'name': 'Tomaat',
+      'name': 'Tomato',
       'harvestState': {
         'scarce': 'Scarce',
         'enough': 'Enough',

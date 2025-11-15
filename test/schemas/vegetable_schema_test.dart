@@ -7,7 +7,7 @@ import 'package:json_schema/json_schema.dart';
 Map<String, dynamic> createValidTranslations() {
   return {
     'en': {
-      'name': 'Tomaat',
+      'name': 'Tomato',
       'harvestState': {
         'scarce': 'Scarce',
         'enough': 'Enough',
