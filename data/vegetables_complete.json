@@ -1,0 +1,728 @@
+{
+  "harvestStateTranslations": {
+    "en": {
+      "scarce": "Scarce",
+      "enough": "Enough",
+      "plenty": "Plenty"
+    },
+    "nl": {
+      "scarce": "Schaars",
+      "enough": "Genoeg",
+      "plenty": "Overvloed"
+    },
+    "fr": {
+      "scarce": "Rare",
+      "enough": "Suffisant",
+      "plenty": "Abondant"
+    },
+    "de": {
+      "scarce": "Knapp",
+      "enough": "Ausreichend",
+      "plenty": "Reichlich"
+    }
+  },
+  "vegetables": [
+    {
+      "name": "Potato",
+      "translations": {
+        "en": "Potato",
+        "nl": "Aardappel",
+        "fr": "Pomme de terre",
+        "de": "Kartoffel"
+      }
+    },
+    {
+      "name": "Broad Bean",
+      "translations": {
+        "en": "Broad Bean",
+        "nl": "Tuinboon",
+        "fr": "Fève",
+        "de": "Ackerbohne"
+      }
+    },
+    {
+      "name": "Pea",
+      "translations": {
+        "en": "Pea",
+        "nl": "Erwt",
+        "fr": "Petit pois",
+        "de": "Erbse"
+      }
+    },
+    {
+      "name": "Snow Pea",
+      "translations": {
+        "en": "Snow Pea",
+        "nl": "Peultjes",
+        "fr": "Pois mange-tout",
+        "de": "Zuckererbse"
+      }
+    },
+    {
+      "name": "Princess Bean",
+      "translations": {
+        "en": "Princess Bean",
+        "nl": "Prinsessenboontje",
+        "fr": "Haricot princesse",
+        "de": "Prinzessbohne"
+      }
+    },
+    {
+      "name": "Lima Bean",
+      "translations": {
+        "en": "Lima Bean",
+        "nl": "Boterboon",
+        "fr": "Haricot de Lima",
+        "de": "Mondbohne"
+      }
+    },
+    {
+      "name": "Green Bean",
+      "translations": {
+        "en": "Green Bean",
+        "nl": "Snijboon",
+        "fr": "Haricot vert",
+        "de": "Grüne Bohne"
+      }
+    },
+    {
+      "name": "Cauliflower",
+      "translations": {
+        "en": "Cauliflower",
+        "nl": "Bloemkool",
+        "fr": "Chou-fleur",
+        "de": "Blumenkohl"
+      }
+    },
+    {
+      "name": "Romanesco",
+      "translations": {
+        "en": "Romanesco",
+        "nl": "Romanesco",
+        "fr": "Chou Romanesco",
+        "de": "Romanesco"
+      }
+    },
+    {
+      "name": "Broccoli",
+      "translations": {
+        "en": "Broccoli",
+        "nl": "Broccoli",
+        "fr": "Brocoli",
+        "de": "Brokkoli"
+      }
+    },
+    {
+      "name": "White Cabbage",
+      "translations": {
+        "en": "White Cabbage",
+        "nl": "Witte kool",
+        "fr": "Chou blanc",
+        "de": "Weißkohl"
+      }
+    },
+    {
+      "name": "Red Cabbage",
+      "translations": {
+        "en": "Red Cabbage",
+        "nl": "Rode kool",
+        "fr": "Chou rouge",
+        "de": "Rotkohl"
+      }
+    },
+    {
+      "name": "Pointed Cabbage",
+      "translations": {
+        "en": "Pointed Cabbage",
+        "nl": "Spitskool",
+        "fr": "Chou pointu",
+        "de": "Spitzkohl"
+      }
+    },
+    {
+      "name": "Savoy Cabbage",
+      "translations": {
+        "en": "Savoy Cabbage",
+        "nl": "Savooikool",
+        "fr": "Chou de Savoie",
+        "de": "Wirsing"
+      }
+    },
+    {
+      "name": "Kale",
+      "translations": {
+        "en": "Kale",
+        "nl": "Boerenkool",
+        "fr": "Chou frisé",
+        "de": "Grünkohl"
+      }
+    },
+    {
+      "name": "Palm Kale",
+      "translations": {
+        "en": "Palm Kale",
+        "nl": "Palmkool",
+        "fr": "Chou palmier",
+        "de": "Palmkohl"
+      }
+    },
+    {
+      "name": "Daikon",
+      "translations": {
+        "en": "Daikon",
+        "nl": "Daikon",
+        "fr": "Daikon",
+        "de": "Daikon"
+      }
+    },
+    {
+      "name": "Black Radish",
+      "translations": {
+        "en": "Black Radish",
+        "nl": "Rammanas",
+        "fr": "Radis noir",
+        "de": "Schwarzer Rettich"
+      }
+    },
+    {
+      "name": "White Radish",
+      "translations": {
+        "en": "White Radish",
+        "nl": "Rettich",
+        "fr": "Radis blanc",
+        "de": "Rettich"
+      }
+    },
+    {
+      "name": "Kohlrabi",
+      "translations": {
+        "en": "Kohlrabi",
+        "nl": "Koolrabi",
+        "fr": "Chou-rave",
+        "de": "Kohlrabi"
+      }
+    },
+    {
+      "name": "Rutabaga",
+      "translations": {
+        "en": "Rutabaga",
+        "nl": "Koolraap",
+        "fr": "Rutabaga",
+        "de": "Steckrübe"
+      }
+    },
+    {
+      "name": "Turnip",
+      "translations": {
+        "en": "Turnip",
+        "nl": "Raap",
+        "fr": "Navet",
+        "de": "Speiserübe"
+      }
+    },
+    {
+      "name": "Bok Choy",
+      "translations": {
+        "en": "Bok Choy",
+        "nl": "Paksoi",
+        "fr": "Pak choi",
+        "de": "Pak Choi"
+      }
+    },
+    {
+      "name": "Chinese Cabbage",
+      "translations": {
+        "en": "Chinese Cabbage",
+        "nl": "Chinese kool",
+        "fr": "Chou chinois",
+        "de": "Chinakohl"
+      }
+    },
+    {
+      "name": "Brussels Sprouts",
+      "translations": {
+        "en": "Brussels Sprouts",
+        "nl": "Spruiten",
+        "fr": "Choux de Bruxelles",
+        "de": "Rosenkohl"
+      }
+    },
+    {
+      "name": "Lettuce",
+      "translations": {
+        "en": "Lettuce",
+        "nl": "Sla",
+        "fr": "Laitue",
+        "de": "Kopfsalat"
+      }
+    },
+    {
+      "name": "Asian Salad Mix",
+      "translations": {
+        "en": "Asian Salad Mix",
+        "nl": "Asia Mix",
+        "fr": "Mélange de salades asiatiques",
+        "de": "Asiatischer Salatmix"
+      }
+    },
+    {
+      "name": "Lamb's Lettuce",
+      "translations": {
+        "en": "Lamb's Lettuce",
+        "nl": "Veldsla",
+        "fr": "Mâche",
+        "de": "Feldsalat"
+      }
+    },
+    {
+      "name": "Turnip Greens",
+      "translations": {
+        "en": "Turnip Greens",
+        "nl": "Raapsteel",
+        "fr": "Fanes de navet",
+        "de": "Stielmus"
+      }
+    },
+    {
+      "name": "Chervil",
+      "translations": {
+        "en": "Chervil",
+        "nl": "Kervel",
+        "fr": "Cerfeuil",
+        "de": "Kerbel"
+      }
+    },
+    {
+      "name": "Radish",
+      "translations": {
+        "en": "Radish",
+        "nl": "Radijs",
+        "fr": "Radis",
+        "de": "Radieschen"
+      }
+    },
+    {
+      "name": "Winter Purslane",
+      "translations": {
+        "en": "Winter Purslane",
+        "nl": "Winterpostelein",
+        "fr": "Claytone de Cuba",
+        "de": "Winterportulak"
+      }
+    },
+    {
+      "name": "Carrot",
+      "translations": {
+        "en": "Carrot",
+        "nl": "Wortel",
+        "fr": "Carotte",
+        "de": "Karotte"
+      }
+    },
+    {
+      "name": "Arugula",
+      "translations": {
+        "en": "Arugula",
+        "nl": "Rucola",
+        "fr": "Roquette",
+        "de": "Rucola"
+      }
+    },
+    {
+      "name": "Frills Mustard",
+      "translations": {
+        "en": "Frills Mustard",
+        "nl": "Frills",
+        "fr": "Moutarde frisée",
+        "de": "Frisierter Senf"
+      }
+    },
+    {
+      "name": "Mustard Greens",
+      "translations": {
+        "en": "Mustard Greens",
+        "nl": "Mosterdblad",
+        "fr": "Feuilles de moutarde",
+        "de": "Senfblätter"
+      }
+    },
+    {
+      "name": "Winter Cress",
+      "translations": {
+        "en": "Winter Cress",
+        "nl": "Winterkers",
+        "fr": "Cresson de jardin",
+        "de": "Winterkresse"
+      }
+    },
+    {
+      "name": "Spinach",
+      "translations": {
+        "en": "Spinach",
+        "nl": "Spinazie",
+        "fr": "Épinard",
+        "de": "Spinat"
+      }
+    },
+    {
+      "name": "Basil",
+      "translations": {
+        "en": "Basil",
+        "nl": "Basilicum",
+        "fr": "Basilic",
+        "de": "Basilikum"
+      }
+    },
+    {
+      "name": "Cilantro",
+      "translations": {
+        "en": "Cilantro",
+        "nl": "Koriander",
+        "fr": "Coriandre",
+        "de": "Koriander"
+      }
+    },
+    {
+      "name": "Dill",
+      "translations": {
+        "en": "Dill",
+        "nl": "Dille",
+        "fr": "Aneth",
+        "de": "Dill"
+      }
+    },
+    {
+      "name": "Parsley",
+      "translations": {
+        "en": "Parsley",
+        "nl": "Peterselie",
+        "fr": "Persil",
+        "de": "Petersilie"
+      }
+    },
+    {
+      "name": "New Zealand Spinach",
+      "translations": {
+        "en": "New Zealand Spinach",
+        "nl": "Nieuw-Zeelandse spinazie",
+        "fr": "Tétragone cornue",
+        "de": "Neuseeländer Spinat"
+      }
+    },
+    {
+      "name": "Perpetual Spinach",
+      "translations": {
+        "en": "Perpetual Spinach",
+        "nl": "Doorlevende spinazie",
+        "fr": "Épinard perpétuel",
+        "de": "Ewiger Spinat"
+      }
+    },
+    {
+      "name": "Orache",
+      "translations": {
+        "en": "Orache",
+        "nl": "Warmoes",
+        "fr": "Arroche",
+        "de": "Gartenmelde"
+      }
+    },
+    {
+      "name": "Celery",
+      "translations": {
+        "en": "Celery",
+        "nl": "Selder",
+        "fr": "Céleri",
+        "de": "Staudensellerie"
+      }
+    },
+    {
+      "name": "Celeriac",
+      "translations": {
+        "en": "Celeriac",
+        "nl": "Knolselder",
+        "fr": "Céleri-rave",
+        "de": "Knollensellerie"
+      }
+    },
+    {
+      "name": "Radicchio",
+      "translations": {
+        "en": "Radicchio",
+        "nl": "Roodlof",
+        "fr": "Radicchio",
+        "de": "Radicchio"
+      }
+    },
+    {
+      "name": "Green Chicory",
+      "translations": {
+        "en": "Green Chicory",
+        "nl": "Groenlof",
+        "fr": "Chicorée verte",
+        "de": "Grüne Zichorie"
+      }
+    },
+    {
+      "name": "Endive",
+      "translations": {
+        "en": "Endive",
+        "nl": "Andijvie",
+        "fr": "Chicorée frisée",
+        "de": "Endivie"
+      }
+    },
+    {
+      "name": "Yacon",
+      "translations": {
+        "en": "Yacon",
+        "nl": "Yacon",
+        "fr": "Yacon",
+        "de": "Yacon"
+      }
+    },
+    {
+      "name": "Sweet Potato",
+      "translations": {
+        "en": "Sweet Potato",
+        "nl": "Bataat",
+        "fr": "Patate douce",
+        "de": "Süßkartoffel"
+      }
+    },
+    {
+      "name": "Summer Purslane",
+      "translations": {
+        "en": "Summer Purslane",
+        "nl": "Zomerpostelein",
+        "fr": "Pourpier",
+        "de": "Portulak"
+      }
+    },
+    {
+      "name": "Sweet Corn",
+      "translations": {
+        "en": "Sweet Corn",
+        "nl": "Suikermais",
+        "fr": "Maïs doux",
+        "de": "Zuckermais"
+      }
+    },
+    {
+      "name": "Ground Cherry",
+      "translations": {
+        "en": "Ground Cherry",
+        "nl": "Physalis",
+        "fr": "Physalis",
+        "de": "Physalis"
+      }
+    },
+    {
+      "name": "Pumpkin",
+      "translations": {
+        "en": "Pumpkin",
+        "nl": "Pompoen",
+        "fr": "Citrouille",
+        "de": "Kürbis"
+      }
+    },
+    {
+      "name": "Watermelon",
+      "translations": {
+        "en": "Watermelon",
+        "nl": "Watermeloen",
+        "fr": "Pastèque",
+        "de": "Wassermelone"
+      }
+    },
+    {
+      "name": "Cucumber",
+      "translations": {
+        "en": "Cucumber",
+        "nl": "Komkommer",
+        "fr": "Concombre",
+        "de": "Gurke"
+      }
+    },
+    {
+      "name": "Pattypan Squash",
+      "translations": {
+        "en": "Pattypan Squash",
+        "nl": "Patisson",
+        "fr": "Pâtisson",
+        "de": "Patisson"
+      }
+    },
+    {
+      "name": "Zucchini",
+      "translations": {
+        "en": "Zucchini",
+        "nl": "Courgette",
+        "fr": "Courgette",
+        "de": "Zucchini"
+      }
+    },
+    {
+      "name": "Tomato",
+      "translations": {
+        "en": "Tomato",
+        "nl": "Tomaat",
+        "fr": "Tomate",
+        "de": "Tomate"
+      }
+    },
+    {
+      "name": "Bell Pepper",
+      "translations": {
+        "en": "Bell Pepper",
+        "nl": "Paprika",
+        "fr": "Poivron",
+        "de": "Paprika"
+      }
+    },
+    {
+      "name": "Eggplant",
+      "translations": {
+        "en": "Eggplant",
+        "nl": "Aubergine",
+        "fr": "Aubergine",
+        "de": "Aubergine"
+      }
+    },
+    {
+      "name": "Chili Pepper",
+      "translations": {
+        "en": "Chili Pepper",
+        "nl": "Peper",
+        "fr": "Piment",
+        "de": "Chilischote"
+      }
+    },
+    {
+      "name": "Storage Onion",
+      "translations": {
+        "en": "Storage Onion",
+        "nl": "Ajuin (bewaar)",
+        "fr": "Oignon de conservation",
+        "de": "Lagerzwiebel"
+      }
+    },
+    {
+      "name": "Red Onion",
+      "translations": {
+        "en": "Red Onion",
+        "nl": "Ajuin (rood)",
+        "fr": "Oignon rouge",
+        "de": "Rote Zwiebel"
+      }
+    },
+    {
+      "name": "Leek",
+      "translations": {
+        "en": "Leek",
+        "nl": "Prei",
+        "fr": "Poireau",
+        "de": "Lauch"
+      }
+    },
+    {
+      "name": "Fennel",
+      "translations": {
+        "en": "Fennel",
+        "nl": "Venkel",
+        "fr": "Fenouil",
+        "de": "Fenchel"
+      }
+    },
+    {
+      "name": "Beetroot",
+      "translations": {
+        "en": "Beetroot",
+        "nl": "Rode biet",
+        "fr": "Betterave",
+        "de": "Rote Bete"
+      }
+    },
+    {
+      "name": "Garlic",
+      "translations": {
+        "en": "Garlic",
+        "nl": "Look",
+        "fr": "Ail",
+        "de": "Knoblauch"
+      }
+    },
+    {
+      "name": "Scallion",
+      "translations": {
+        "en": "Scallion",
+        "nl": "Stengelui",
+        "fr": "Ciboule",
+        "de": "Frühlingszwiebel"
+      }
+    },
+    {
+      "name": "Shallot",
+      "translations": {
+        "en": "Shallot",
+        "nl": "Sjalot",
+        "fr": "Échalote",
+        "de": "Schalotte"
+      }
+    },
+    {
+      "name": "Summer Carrot",
+      "translations": {
+        "en": "Summer Carrot",
+        "nl": "Wortel (zomer)",
+        "fr": "Carotte d'été",
+        "de": "Sommerkarotte"
+      }
+    },
+    {
+      "name": "Storage Carrot",
+      "translations": {
+        "en": "Storage Carrot",
+        "nl": "Wortel (bewaar)",
+        "fr": "Carotte de conservation",
+        "de": "Lagerkarotte"
+      }
+    },
+    {
+      "name": "Parsnip",
+      "translations": {
+        "en": "Parsnip",
+        "nl": "Pastinaak",
+        "fr": "Panais",
+        "de": "Pastinake"
+      }
+    },
+    {
+      "name": "Salsify",
+      "translations": {
+        "en": "Salsify",
+        "nl": "Schorseneer",
+        "fr": "Salsifis",
+        "de": "Schwarzwurzel"
+      }
+    },
+    {
+      "name": "Belgian Endive",
+      "translations": {
+        "en": "Belgian Endive",
+        "nl": "Witloof",
+        "fr": "Endive",
+        "de": "Chicorée"
+      }
+    },
+    {
+      "name": "Parsley Root",
+      "translations": {
+        "en": "Parsley Root",
+        "nl": "Wortelpeterselie",
+        "fr": "Persil tubéreux",
+        "de": "Wurzelpetersilie"
+      }
+    }
+  ]
+}

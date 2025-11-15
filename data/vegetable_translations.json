@@ -1,0 +1,470 @@
+[
+  {
+    "nl": "Aardappel",
+    "en": "Potato",
+    "fr": "Pomme de terre",
+    "de": "Kartoffel"
+  },
+  {
+    "nl": "Tuinboon",
+    "en": "Broad Bean",
+    "fr": "Fève",
+    "de": "Ackerbohne"
+  },
+  {
+    "nl": "Erwt",
+    "en": "Pea",
+    "fr": "Petit pois",
+    "de": "Erbse"
+  },
+  {
+    "nl": "Peultjes",
+    "en": "Snow Pea",
+    "fr": "Pois mange-tout",
+    "de": "Zuckererbse"
+  },
+  {
+    "nl": "Prinsessenboontje",
+    "en": "Princess Bean",
+    "fr": "Haricot princesse",
+    "de": "Prinzessbohne"
+  },
+  {
+    "nl": "Boterboon",
+    "en": "Lima Bean",
+    "fr": "Haricot de Lima",
+    "de": "Mondbohne"
+  },
+  {
+    "nl": "Snijboon",
+    "en": "Green Bean",
+    "fr": "Haricot vert",
+    "de": "Grüne Bohne"
+  },
+  {
+    "nl": "Bloemkool",
+    "en": "Cauliflower",
+    "fr": "Chou-fleur",
+    "de": "Blumenkohl"
+  },
+  {
+    "nl": "Romanesco",
+    "en": "Romanesco",
+    "fr": "Chou Romanesco",
+    "de": "Romanesco"
+  },
+  {
+    "nl": "Broccoli",
+    "en": "Broccoli",
+    "fr": "Brocoli",
+    "de": "Brokkoli"
+  },
+  {
+    "nl": "Witte kool",
+    "en": "White Cabbage",
+    "fr": "Chou blanc",
+    "de": "Weißkohl"
+  },
+  {
+    "nl": "Rode kool",
+    "en": "Red Cabbage",
+    "fr": "Chou rouge",
+    "de": "Rotkohl"
+  },
+  {
+    "nl": "Spitskool",
+    "en": "Pointed Cabbage",
+    "fr": "Chou pointu",
+    "de": "Spitzkohl"
+  },
+  {
+    "nl": "Savooikool",
+    "en": "Savoy Cabbage",
+    "fr": "Chou de Savoie",
+    "de": "Wirsing"
+  },
+  {
+    "nl": "Boerenkool",
+    "en": "Kale",
+    "fr": "Chou frisé",
+    "de": "Grünkohl"
+  },
+  {
+    "nl": "Palmkool",
+    "en": "Palm Kale",
+    "fr": "Chou palmier",
+    "de": "Palmkohl"
+  },
+  {
+    "nl": "Daikon",
+    "en": "Daikon",
+    "fr": "Daikon",
+    "de": "Daikon"
+  },
+  {
+    "nl": "Rammanas",
+    "en": "Black Radish",
+    "fr": "Radis noir",
+    "de": "Schwarzer Rettich"
+  },
+  {
+    "nl": "Rettich",
+    "en": "White Radish",
+    "fr": "Radis blanc",
+    "de": "Rettich"
+  },
+  {
+    "nl": "Koolrabi",
+    "en": "Kohlrabi",
+    "fr": "Chou-rave",
+    "de": "Kohlrabi"
+  },
+  {
+    "nl": "Koolraap",
+    "en": "Rutabaga",
+    "fr": "Rutabaga",
+    "de": "Steckrübe"
+  },
+  {
+    "nl": "Raap",
+    "en": "Turnip",
+    "fr": "Navet",
+    "de": "Speiserübe"
+  },
+  {
+    "nl": "Paksoi",
+    "en": "Bok Choy",
+    "fr": "Pak choi",
+    "de": "Pak Choi"
+  },
+  {
+    "nl": "Chinese kool",
+    "en": "Chinese Cabbage",
+    "fr": "Chou chinois",
+    "de": "Chinakohl"
+  },
+  {
+    "nl": "Spruiten",
+    "en": "Brussels Sprouts",
+    "fr": "Choux de Bruxelles",
+    "de": "Rosenkohl"
+  },
+  {
+    "nl": "Sla",
+    "en": "Lettuce",
+    "fr": "Laitue",
+    "de": "Kopfsalat"
+  },
+  {
+    "nl": "Asia Mix",
+    "en": "Asian Salad Mix",
+    "fr": "Mélange de salades asiatiques",
+    "de": "Asiatischer Salatmix"
+  },
+  {
+    "nl": "Veldsla",
+    "en": "Lamb's Lettuce",
+    "fr": "Mâche",
+    "de": "Feldsalat"
+  },
+  {
+    "nl": "Raapsteel",
+    "en": "Turnip Greens",
+    "fr": "Fanes de navet",
+    "de": "Stielmus"
+  },
+  {
+    "nl": "Kervel",
+    "en": "Chervil",
+    "fr": "Cerfeuil",
+    "de": "Kerbel"
+  },
+  {
+    "nl": "Radijs",
+    "en": "Radish",
+    "fr": "Radis",
+    "de": "Radieschen"
+  },
+  {
+    "nl": "Winterpostelein",
+    "en": "Winter Purslane",
+    "fr": "Claytone de Cuba",
+    "de": "Winterportulak"
+  },
+  {
+    "nl": "Wortel",
+    "en": "Carrot",
+    "fr": "Carotte",
+    "de": "Karotte"
+  },
+  {
+    "nl": "Rucola",
+    "en": "Arugula",
+    "fr": "Roquette",
+    "de": "Rucola"
+  },
+  {
+    "nl": "Frills",
+    "en": "Frills Mustard",
+    "fr": "Moutarde frisée",
+    "de": "Frisierter Senf"
+  },
+  {
+    "nl": "Mosterdblad",
+    "en": "Mustard Greens",
+    "fr": "Feuilles de moutarde",
+    "de": "Senfblätter"
+  },
+  {
+    "nl": "Winterkers",
+    "en": "Winter Cress",
+    "fr": "Cresson de jardin",
+    "de": "Winterkresse"
+  },
+  {
+    "nl": "Spinazie",
+    "en": "Spinach",
+    "fr": "Épinard",
+    "de": "Spinat"
+  },
+  {
+    "nl": "Basilicum",
+    "en": "Basil",
+    "fr": "Basilic",
+    "de": "Basilikum"
+  },
+  {
+    "nl": "Koriander",
+    "en": "Cilantro",
+    "fr": "Coriandre",
+    "de": "Koriander"
+  },
+  {
+    "nl": "Dille",
+    "en": "Dill",
+    "fr": "Aneth",
+    "de": "Dill"
+  },
+  {
+    "nl": "Peterselie",
+    "en": "Parsley",
+    "fr": "Persil",
+    "de": "Petersilie"
+  },
+  {
+    "nl": "Nieuw-Zeelandse spinazie",
+    "en": "New Zealand Spinach",
+    "fr": "Tétragone cornue",
+    "de": "Neuseeländer Spinat"
+  },
+  {
+    "nl": "Doorlevende spinazie",
+    "en": "Perpetual Spinach",
+    "fr": "Épinard perpétuel",
+    "de": "Ewiger Spinat"
+  },
+  {
+    "nl": "Warmoes",
+    "en": "Orache",
+    "fr": "Arroche",
+    "de": "Gartenmelde"
+  },
+  {
+    "nl": "Selder",
+    "en": "Celery",
+    "fr": "Céleri",
+    "de": "Staudensellerie"
+  },
+  {
+    "nl": "Knolselder",
+    "en": "Celeriac",
+    "fr": "Céleri-rave",
+    "de": "Knollensellerie"
+  },
+  {
+    "nl": "Roodlof",
+    "en": "Radicchio",
+    "fr": "Radicchio",
+    "de": "Radicchio"
+  },
+  {
+    "nl": "Groenlof",
+    "en": "Green Chicory",
+    "fr": "Chicorée verte",
+    "de": "Grüne Zichorie"
+  },
+  {
+    "nl": "Andijvie",
+    "en": "Endive",
+    "fr": "Chicorée frisée",
+    "de": "Endivie"
+  },
+  {
+    "nl": "Yacon",
+    "en": "Yacon",
+    "fr": "Yacon",
+    "de": "Yacon"
+  },
+  {
+    "nl": "Bataat",
+    "en": "Sweet Potato",
+    "fr": "Patate douce",
+    "de": "Süßkartoffel"
+  },
+  {
+    "nl": "Zomerpostelein",
+    "en": "Summer Purslane",
+    "fr": "Pourpier",
+    "de": "Portulak"
+  },
+  {
+    "nl": "Suikermais",
+    "en": "Sweet Corn",
+    "fr": "Maïs doux",
+    "de": "Zuckermais"
+  },
+  {
+    "nl": "Physalis",
+    "en": "Ground Cherry",
+    "fr": "Physalis",
+    "de": "Physalis"
+  },
+  {
+    "nl": "Pompoen",
+    "en": "Pumpkin",
+    "fr": "Citrouille",
+    "de": "Kürbis"
+  },
+  {
+    "nl": "Watermeloen",
+    "en": "Watermelon",
+    "fr": "Pastèque",
+    "de": "Wassermelone"
+  },
+  {
+    "nl": "Komkommer",
+    "en": "Cucumber",
+    "fr": "Concombre",
+    "de": "Gurke"
+  },
+  {
+    "nl": "Patisson",
+    "en": "Pattypan Squash",
+    "fr": "Pâtisson",
+    "de": "Patisson"
+  },
+  {
+    "nl": "Courgette",
+    "en": "Zucchini",
+    "fr": "Courgette",
+    "de": "Zucchini"
+  },
+  {
+    "nl": "Tomaat",
+    "en": "Tomato",
+    "fr": "Tomate",
+    "de": "Tomate"
+  },
+  {
+    "nl": "Paprika",
+    "en": "Bell Pepper",
+    "fr": "Poivron",
+    "de": "Paprika"
+  },
+  {
+    "nl": "Aubergine",
+    "en": "Eggplant",
+    "fr": "Aubergine",
+    "de": "Aubergine"
+  },
+  {
+    "nl": "Peper",
+    "en": "Chili Pepper",
+    "fr": "Piment",
+    "de": "Chilischote"
+  },
+  {
+    "nl": "Ajuin (bewaar)",
+    "en": "Storage Onion",
+    "fr": "Oignon de conservation",
+    "de": "Lagerzwiebel"
+  },
+  {
+    "nl": "Ajuin (rood)",
+    "en": "Red Onion",
+    "fr": "Oignon rouge",
+    "de": "Rote Zwiebel"
+  },
+  {
+    "nl": "Prei",
+    "en": "Leek",
+    "fr": "Poireau",
+    "de": "Lauch"
+  },
+  {
+    "nl": "Venkel",
+    "en": "Fennel",
+    "fr": "Fenouil",
+    "de": "Fenchel"
+  },
+  {
+    "nl": "Rode biet",
+    "en": "Beetroot",
+    "fr": "Betterave",
+    "de": "Rote Bete"
+  },
+  {
+    "nl": "Look",
+    "en": "Garlic",
+    "fr": "Ail",
+    "de": "Knoblauch"
+  },
+  {
+    "nl": "Stengelui",
+    "en": "Scallion",
+    "fr": "Ciboule",
+    "de": "Frühlingszwiebel"
+  },
+  {
+    "nl": "Sjalot",
+    "en": "Shallot",
+    "fr": "Échalote",
+    "de": "Schalotte"
+  },
+  {
+    "nl": "Wortel (zomer)",
+    "en": "Summer Carrot",
+    "fr": "Carotte d'été",
+    "de": "Sommerkarotte"
+  },
+  {
+    "nl": "Wortel (bewaar)",
+    "en": "Storage Carrot",
+    "fr": "Carotte de conservation",
+    "de": "Lagerkarotte"
+  },
+  {
+    "nl": "Pastinaak",
+    "en": "Parsnip",
+    "fr": "Panais",
+    "de": "Pastinake"
+  },
+  {
+    "nl": "Schorseneer",
+    "en": "Salsify",
+    "fr": "Salsifis",
+    "de": "Schwarzwurzel"
+  },
+  {
+    "nl": "Witloof",
+    "en": "Belgian Endive",
+    "fr": "Endive",
+    "de": "Chicorée"
+  },
+  {
+    "nl": "Wortelpeterselie",
+    "en": "Parsley Root",
+    "fr": "Persil tubéreux",
+    "de": "Wurzelpetersilie"
+  }
+]
