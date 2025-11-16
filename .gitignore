@@ -12,6 +12,9 @@
 .swiftpm/
 migrate_working_dir/
 
+# PR description (for copy/paste only, not committed)
+PR_DESCRIPTION.md
+
 # IntelliJ related
 *.iml
 *.ipr
