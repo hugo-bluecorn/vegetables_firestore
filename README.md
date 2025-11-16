@@ -8,10 +8,13 @@ A Dart application providing a multilingual vegetable data model with comprehens
 - **Vegetable Data Model**: Complete model with harvest states, timestamps, and localization
 - **Type-Safe Serialization**: Using `dart_mappable` for JSON serialization/deserialization
 - **JSON Schema Validation**: Ensures data integrity and structure
-- **Comprehensive Testing**: Full test coverage with TDD methodology (144 tests)
+- **Comprehensive Testing**: Full test coverage with TDD methodology (149 tests)
 - **CLI Import Tool**: Translate Dutch vegetable names to multiple languages via DeepL API
 - **Batch Import**: Import and translate vegetables from text files with progress reporting
 - **JSON Export**: Export multilingual vegetable data to formatted JSON
+- **Cloud Firestore Integration**: Persistent storage with Firebase Admin SDK
+- **Duplicate Detection**: Smart deduplication when uploading to Firestore
+- **Advanced Querying**: Filter vegetables by harvest state, name, and more
 
 **Default Language**: Dutch (NL)
 
@@ -118,6 +121,51 @@ Paprika
 - Rate limiting and retry logic for API requests
 - Secure API key handling (prompts if not provided)
 
+### Import and Upload to Cloud Firestore
+
+Import vegetables and automatically upload them to Cloud Firestore with duplicate detection:
+
+```bash
+# Import and upload to Firestore
+dart run bin/vegetables_firestore.dart import \
+  --input vegetables.txt \
+  --output vegetables.json \
+  --upload-to-firestore \
+  --firebase-project-id your-project-id \
+  --api-key YOUR_DEEPL_API_KEY
+
+# With interactive prompts (more secure)
+dart run bin/vegetables_firestore.dart import \
+  --input vegetables.txt \
+  --output vegetables.json \
+  --upload-to-firestore
+# Will prompt for:
+# - DeepL API key
+# - Firebase project ID
+# - Firebase service account JSON
+```
+
+**Firestore Features:**
+- **Duplicate Detection**: Automatically skips vegetables that already exist
+- **Batch Upload**: Efficient bulk operations with progress reporting
+- **Secure Authentication**: Service account credentials prompted (never saved to disk)
+- **Advanced Queries**: Filter by harvest state, query by name, etc.
+- **Full CRUD Operations**: Create, Read, Update, Delete support
+- **Emulator Support**: Test locally with Firebase Emulator Suite
+
+**Service Account Setup:**
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Select your project → Project Settings → Service Accounts
+3. Click "Generate New Private Key"
+4. Download the JSON file (keep it secure!)
+5. Provide the JSON content when prompted by the CLI
+
+**Security Note:** Service account credentials are:
+- Prompted during execution only
+- Never saved to disk
+- Never committed to version control
+- Pattern `*service-account*.json` is in .gitignore
+
 ### Using the Vegetable Model
 
 ```dart
@@ -208,7 +256,19 @@ dart test
 
 # Run specific test file
 dart test test/models/vegetable_test.dart
+
+# Run Firestore tests with emulator
+export FIRESTORE_EMULATOR_HOST="localhost:8080"
+firebase emulators:start  # In another terminal
+dart test test/services/firestore_service_test.dart
+dart test test/services/vegetable_repository_test.dart
 ```
+
+**Note:** Firestore tests require either:
+- Firebase Emulator (recommended for local development)
+- Real Firebase credentials (for integration testing)
+
+Without emulator, Firestore tests will be skipped automatically.
 
 ### Code Generation
 
@@ -254,18 +314,27 @@ vegetables_firestore/
 │   │   ├── harvest_state_translation_service.dart  # Harvest state translations
 │   │   ├── vegetable_factory.dart         # Vegetable object factory
 │   │   ├── vegetable_importer.dart        # Batch import service
-│   │   └── vegetable_exporter.dart        # JSON export service
+│   │   ├── vegetable_exporter.dart        # JSON export service
+│   │   ├── firestore_service.dart         # Firestore connection management
+│   │   ├── vegetable_repository.dart      # Firestore CRUD operations
+│   │   ├── duplicate_detector.dart        # Duplicate detection service
+│   │   └── firestore_upload_service.dart  # Batch Firestore upload
 │   └── vegetable_validator.dart     # Validation utilities
 ├── test/
 │   ├── models/
 │   │   └── vegetable_test.dart      # Model tests
-│   ├── services/                    # Service layer tests (53 tests)
+│   ├── services/                    # Service layer tests
 │   │   ├── vegetable_file_reader_test.dart
 │   │   ├── deepl_client_test.dart
 │   │   ├── harvest_state_translation_service_test.dart
 │   │   ├── vegetable_factory_test.dart
 │   │   ├── vegetable_importer_test.dart
-│   │   └── vegetable_exporter_test.dart
+│   │   ├── vegetable_exporter_test.dart
+│   │   ├── firestore_service_test.dart      # Firestore connection tests
+│   │   └── vegetable_repository_test.dart   # Firestore CRUD tests
+│   ├── test_helpers/
+│   │   ├── firestore_test_helper.dart       # Firestore testing utilities
+│   │   └── vegetable_test_helper.dart       # Vegetable test factories
 │   ├── schemas/
 │   │   └── vegetable_schema_test.dart # Schema validation tests
 │   └── vegetable_validator_test.dart # Validator tests
@@ -285,6 +354,7 @@ vegetables_firestore/
 - `args` ^2.7.0 - Command-line argument parsing
 - `dart_mappable` ^4.2.2 - Type-safe JSON serialization
 - `http` ^1.2.0 - HTTP client for DeepL API integration
+- `dart_firebase_admin` ^0.4.1 - Firebase Admin SDK for Firestore
 
 ### Development
 - `test` ^1.25.6 - Testing framework
@@ -295,11 +365,21 @@ vegetables_firestore/
 
 ### API Requirements
 
+#### DeepL API (for translations)
+
 To use the import feature, you need a **DeepL API key**:
 1. Sign up for a free DeepL API account at https://www.deepl.com/pro-api
 2. Get your API key from the account dashboard
 3. Free tier includes 500,000 characters/month
 4. API key format: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx:fx`
+
+#### Firebase (for Firestore storage)
+
+To use Firestore features, you need:
+1. **Firebase Project**: Create a project at [Firebase Console](https://console.firebase.google.com/)
+2. **Service Account**: Generate service account credentials (see "Import and Upload to Cloud Firestore" section above)
+3. **Free Tier**: 50K reads, 20K writes, 20K deletes per day
+4. **Optional**: Firebase Emulator for local testing
 
 ## Validation Rules
 
