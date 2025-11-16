@@ -12,6 +12,9 @@
 .swiftpm/
 migrate_working_dir/
 
+# PR description (for copy/paste only, not committed)
+PR_DESCRIPTION.md
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -171,6 +174,9 @@ firebase.json
 android/app/google-services.json
 lib/firebase_options.dart
 web/firebase-messaging-sw.js
+*service-account*.json
+serviceAccount*.json
+service_account*.json
 
 ios/GoogleService-Info.plist
 macos/GoogleService-Info.plist

@@ -2,6 +2,10 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:vegetables_firestore/services/vegetable_importer.dart';
 import 'package:vegetables_firestore/services/vegetable_exporter.dart';
+import 'package:vegetables_firestore/services/firestore_service.dart';
+import 'package:vegetables_firestore/services/vegetable_repository.dart';
+import 'package:vegetables_firestore/services/firestore_upload_service.dart';
+import 'package:vegetables_firestore/models/vegetable.dart';
 
 const String version = '0.0.1';
 
@@ -41,6 +45,19 @@ ArgParser buildImportCommand() {
       'api-key',
       abbr: 'k',
       help: 'DeepL API key (will prompt if not provided)',
+    )
+    ..addFlag(
+      'upload-to-firestore',
+      defaultsTo: false,
+      help: 'Upload vegetables to Firestore after import',
+    )
+    ..addOption(
+      'firebase-project-id',
+      help: 'Firebase project ID (required if uploading to Firestore)',
+    )
+    ..addOption(
+      'firebase-service-account',
+      help: 'Path to service account JSON file',
     );
 }
 
@@ -164,9 +181,95 @@ Future<void> handleImportCommand(ArgResults command) async {
     print('Writing to $outputPath...');
     await VegetableExporter.toJsonFile(result.vegetables, outputPath);
     print('Done! Exported ${result.vegetables.length} vegetables.');
+
+    // Upload to Firestore if requested
+    if (command.flag('upload-to-firestore')) {
+      print('');
+      await uploadToFirestore(command, result.vegetables);
+    }
   } catch (e) {
     print('');
     print('Error during import: $e');
+    exit(1);
+  }
+}
+
+Future<void> uploadToFirestore(
+  ArgResults command,
+  List<Vegetable> vegetables,
+) async {
+  // Get Firebase project ID
+  var projectId = command.option('firebase-project-id');
+  if (projectId == null || projectId.isEmpty) {
+    stdout.write('Enter Firebase project ID: ');
+    projectId = stdin.readLineSync();
+
+    if (projectId == null || projectId.isEmpty) {
+      print('Error: Firebase project ID is required');
+      exit(1);
+    }
+  }
+
+  // Get service account JSON
+  String serviceAccountJson;
+  final serviceAccountPath = command.option('firebase-service-account');
+
+  if (serviceAccountPath != null && serviceAccountPath.isNotEmpty) {
+    // Read from file
+    final file = File(serviceAccountPath);
+    if (!file.existsSync()) {
+      print('Error: Service account file not found: $serviceAccountPath');
+      exit(1);
+    }
+    serviceAccountJson = await file.readAsString();
+  } else {
+    // Prompt for JSON
+    print('Enter service account JSON (paste entire JSON on one line): ');
+    stdout.write('> ');
+    serviceAccountJson = stdin.readLineSync() ?? '';
+  }
+
+  if (serviceAccountJson.isEmpty) {
+    print('Error: Service account JSON is required for Firestore upload');
+    exit(1);
+  }
+
+  try {
+    // Initialize Firestore
+    print('Connecting to Firestore...');
+    final firestoreService = FirestoreService();
+    await firestoreService.initialize(projectId, serviceAccountJson);
+
+    // Upload vegetables
+    final repository = VegetableRepository(firestoreService.firestore);
+    final uploadService = FirestoreUploadService(repository);
+
+    print('Uploading vegetables to Firestore...');
+    final result = await uploadService.uploadNewVegetables(
+      vegetables,
+      onProgress: (progress) {
+        stdout.write('\r${progress}');
+      },
+    );
+
+    print('');
+    print('');
+    print('Upload complete!');
+    print(result);
+
+    if (result.hasSkipped) {
+      print('');
+      print('Skipped vegetables (already exist in Firestore):');
+      for (final name in result.skippedNames) {
+        print('  - $name');
+      }
+    }
+
+    // Cleanup
+    await firestoreService.close();
+  } catch (e) {
+    print('');
+    print('Error uploading to Firestore: $e');
     exit(1);
   }
 }

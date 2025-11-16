@@ -11,6 +11,7 @@ dependencies:
   args: ^2.7.0
   dart_mappable: ^4.2.2
   http: ^1.2.0
+  dart_firebase_admin: ^0.4.1
 
 dev_dependencies:
   lints: ^6.0.0
