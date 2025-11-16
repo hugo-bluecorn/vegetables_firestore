@@ -10,8 +10,9 @@ This is a Dart application (`vegetables_firestore`) using Dart SDK ^3.10.0 that 
 - **Multilingual support** for Dutch (NL), English (EN), French (FR), and German (DE)
 - **JSON Schema validation**
 - **Type-safe serialization** using `dart_mappable`
-- **Comprehensive test suite** with TDD approach
-- **CLI interface** with basic argument parsing
+- **Comprehensive test suite** with TDD approach (144 tests)
+- **CLI interface** with import command for DeepL translation
+- **Import service** for translating Dutch vegetable names to multiple languages
 
 Default language: **Dutch (NL)**
 
@@ -20,6 +21,18 @@ Default language: **Dutch (NL)**
 ### Run the application
 ```bash
 dart run bin/vegetables_firestore.dart [arguments]
+```
+
+### Import vegetables from text file
+```bash
+# Import Dutch vegetable names and translate to NL, EN, FR, DE
+dart run bin/vegetables_firestore.dart import \
+  --input vegetables.txt \
+  --output vegetables.json \
+  --api-key YOUR_DEEPL_API_KEY
+
+# Will prompt for API key if not provided
+dart run bin/vegetables_firestore.dart import -i vegetables.txt -o vegetables.json
 ```
 
 ### Install dependencies
@@ -70,18 +83,28 @@ dart format .
 
 - **`bin/vegetables_firestore.dart`**: CLI entry point with argument parsing (args package)
   - Supports `--help` / `-h`, `--verbose` / `-v`, and `--version` flags
+  - Supports `import` command for translating vegetables via DeepL API
 
 - **`lib/models/`**: Data models
   - `vegetable.dart`: Vegetable model with i18n support
   - `vegetable.mapper.dart`: Auto-generated mappable code
 
+- **`lib/services/`**: Business logic services
+  - `vegetable_file_reader.dart`: Reads vegetable names from text files
+  - `deepl_client.dart`: DeepL API client with retry logic and rate limiting
+  - `harvest_state_translation_service.dart`: Translates harvest state labels
+  - `vegetable_factory.dart`: Creates multilingual Vegetable objects
+  - `vegetable_importer.dart`: Batch import with progress reporting
+  - `vegetable_exporter.dart`: Exports vegetables to JSON
+
 - **`lib/vegetable_validator.dart`**: Validation utilities
   - `isValidVegetableName()`: Validates vegetable names (letters/spaces, 1-50 chars)
 
-- **`test/`**: Comprehensive test suite
+- **`test/`**: Comprehensive test suite (144 tests)
   - `models/vegetable_test.dart`: Model serialization/deserialization tests
   - `vegetable_validator_test.dart`: Validator logic tests
   - `schemas/vegetable_schema_test.dart`: JSON Schema validation tests
+  - `services/`: Service layer tests (53 tests across 6 services)
 
 - **`data/`**: Vegetable data files
   - `vegetables_complete.json`: Complete vegetable data with translations
@@ -116,6 +139,7 @@ Methods:
 
 - **args**: Command-line argument parsing
 - **dart_mappable**: Type-safe JSON serialization/deserialization
+- **http**: HTTP client for DeepL API integration
 - **build_runner**: Code generation
 - **json_schema**: JSON Schema validation
 - **test**: Testing framework
