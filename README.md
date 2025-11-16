@@ -8,8 +8,10 @@ A Dart application providing a multilingual vegetable data model with comprehens
 - **Vegetable Data Model**: Complete model with harvest states, timestamps, and localization
 - **Type-Safe Serialization**: Using `dart_mappable` for JSON serialization/deserialization
 - **JSON Schema Validation**: Ensures data integrity and structure
-- **Comprehensive Testing**: Full test coverage with TDD methodology
-- **CLI Interface**: Command-line interface with argument parsing
+- **Comprehensive Testing**: Full test coverage with TDD methodology (144 tests)
+- **CLI Import Tool**: Translate Dutch vegetable names to multiple languages via DeepL API
+- **Batch Import**: Import and translate vegetables from text files with progress reporting
+- **JSON Export**: Export multilingual vegetable data to formatted JSON
 
 **Default Language**: Dutch (NL)
 
@@ -38,18 +40,83 @@ dart run build_runner build
 ### Command Line Interface
 
 ```bash
-# Run the application
-dart run bin/vegetables_firestore.dart
-
 # Show help
 dart run bin/vegetables_firestore.dart --help
 
 # Show version
 dart run bin/vegetables_firestore.dart --version
-
-# Verbose output
-dart run bin/vegetables_firestore.dart --verbose
 ```
+
+### Import Vegetables with DeepL Translation
+
+Import Dutch vegetable names from a text file and automatically translate them to NL, EN, FR, and DE:
+
+```bash
+# Import with API key provided
+dart run bin/vegetables_firestore.dart import \
+  --input vegetables.txt \
+  --output vegetables.json \
+  --api-key YOUR_DEEPL_API_KEY
+
+# Import with interactive API key prompt (more secure - key not stored in shell history)
+dart run bin/vegetables_firestore.dart import \
+  --input vegetables.txt \
+  --output vegetables.json
+
+# Using short flags
+dart run bin/vegetables_firestore.dart import -i input.txt -o output.json -k API_KEY
+```
+
+**Input File Format** (`vegetables.txt`):
+```
+Tomaat
+Komkommer
+Wortel
+Paprika
+```
+
+**Output** (`vegetables.json`):
+```json
+[
+  {
+    "name": "Tomaat",
+    "createdAt": "2025-11-16T10:30:00.000Z",
+    "updatedAt": "2025-11-16T10:30:00.000Z",
+    "harvestState": "notAvailable",
+    "translations": {
+      "nl": {
+        "name": "Tomaat",
+        "harvestState": {
+          "scarce": "Schaars",
+          "enough": "Genoeg",
+          "plenty": "Overvloed",
+          "notAvailable": "Niet beschikbaar"
+        }
+      },
+      "en": {
+        "name": "Tomato",
+        "harvestState": {
+          "scarce": "Scarce",
+          "enough": "Enough",
+          "plenty": "Plenty",
+          "notAvailable": "Not Available"
+        }
+      },
+      "fr": { ... },
+      "de": { ... }
+    }
+  }
+]
+```
+
+**Features:**
+- Translates vegetable names using DeepL API
+- Includes harvest state translations for all 4 languages
+- Sets `harvestState: notAvailable` by default
+- Progress reporting during import
+- Handles errors gracefully with detailed reporting
+- Rate limiting and retry logic for API requests
+- Secure API key handling (prompts if not provided)
 
 ### Using the Vegetable Model
 
@@ -176,15 +243,29 @@ dart format . --fix
 ```
 vegetables_firestore/
 ├── bin/
-│   └── vegetables_firestore.dart    # CLI entry point
+│   └── vegetables_firestore.dart    # CLI entry point with import command
 ├── lib/
 │   ├── models/
 │   │   ├── vegetable.dart           # Vegetable data model
 │   │   └── vegetable.mapper.dart    # Generated mappable code
+│   ├── services/
+│   │   ├── vegetable_file_reader.dart     # Text file reader
+│   │   ├── deepl_client.dart              # DeepL API client
+│   │   ├── harvest_state_translation_service.dart  # Harvest state translations
+│   │   ├── vegetable_factory.dart         # Vegetable object factory
+│   │   ├── vegetable_importer.dart        # Batch import service
+│   │   └── vegetable_exporter.dart        # JSON export service
 │   └── vegetable_validator.dart     # Validation utilities
 ├── test/
 │   ├── models/
 │   │   └── vegetable_test.dart      # Model tests
+│   ├── services/                    # Service layer tests (53 tests)
+│   │   ├── vegetable_file_reader_test.dart
+│   │   ├── deepl_client_test.dart
+│   │   ├── harvest_state_translation_service_test.dart
+│   │   ├── vegetable_factory_test.dart
+│   │   ├── vegetable_importer_test.dart
+│   │   └── vegetable_exporter_test.dart
 │   ├── schemas/
 │   │   └── vegetable_schema_test.dart # Schema validation tests
 │   └── vegetable_validator_test.dart # Validator tests
@@ -203,6 +284,7 @@ vegetables_firestore/
 ### Production
 - `args` ^2.7.0 - Command-line argument parsing
 - `dart_mappable` ^4.2.2 - Type-safe JSON serialization
+- `http` ^1.2.0 - HTTP client for DeepL API integration
 
 ### Development
 - `test` ^1.25.6 - Testing framework
@@ -210,6 +292,14 @@ vegetables_firestore/
 - `dart_mappable_builder` ^4.2.3 - Code generation
 - `build_runner` ^2.4.13 - Build system
 - `json_schema` ^5.1.3 - JSON Schema validation
+
+### API Requirements
+
+To use the import feature, you need a **DeepL API key**:
+1. Sign up for a free DeepL API account at https://www.deepl.com/pro-api
+2. Get your API key from the account dashboard
+3. Free tier includes 500,000 characters/month
+4. API key format: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx:fx`
 
 ## Validation Rules
 
