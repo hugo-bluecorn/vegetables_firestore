@@ -1,5 +1,6 @@
 # Miscellaneous
 *.class
+*.lock
 *.log
 *.pyc
 *.swp
@@ -23,6 +24,9 @@ migrate_working_dir/
 .vscode/
 
 # Dart/Flutter/Pub related
+# NOTE: pubspec.lock is intentionally NOT ignored for applications.
+# Applications should commit pubspec.lock to ensure consistent dependency versions.
+# Only Dart packages/libraries should ignore pubspec.lock.
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
@@ -38,6 +42,17 @@ flutter_*.png
 linked_*.ds
 unlinked.ds
 unlinked_spec.ds
+
+# Web compilation artifacts
+# Dart-to-JavaScript compilation output
+*.dart.js
+*.info.json      # Produced by dart2js --dump-info flag
+*.js_
+*.js.deps
+*.js.map
+
+# NOTE: Do not add *.js if your project includes source JS files.
+# These patterns specifically target Dart-compiled JavaScript.
 
 # Coverage
 coverage/
